@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby
+# typed: strict
 # frozen_string_literal: true
 
 require "digest"
 require "json"
 require "net/http"
-require "open-uri"
 require "open3"
 require "optparse"
 require "uri"
@@ -40,6 +40,7 @@ module PgstyTap
     Platform.new(key: "linux_amd64", os: "linux", arch: "amd64"),
   ].freeze
 
+  # Describes every release and asset-name contract managed by the tap.
   module Catalog
     module_function
 
@@ -57,7 +58,7 @@ module PgstyTap
     def timestamp_asset(binary)
       lambda do |tag, platform|
         timestamp = tag.scan(/\d/).join
-        raise Error, "invalid timestamp release tag: #{tag}" unless timestamp.length == 14
+        raise Error, "invalid timestamp release tag: #{tag}" if timestamp.length != 14
 
         "#{binary}_#{timestamp}.0.0_#{platform.os}_#{platform.arch}.tar.gz"
       end
@@ -73,78 +74,78 @@ module PgstyTap
     def configs
       @configs ||= [
         FormulaConfig.new(
-          name: "silo",
-          repo: "pgsty/silo",
-          tag_pattern: TIMESTAMP_TAG,
+          name:             "silo",
+          repo:             "pgsty/silo",
+          tag_pattern:      TIMESTAMP_TAG,
           allow_prerelease: false,
-          nounzip: false,
+          nounzip:          false,
           explicit_version: true,
-          version_proc: method(:timestamp_version),
-          asset_proc: timestamp_asset("silo"),
+          version_proc:     method(:timestamp_version),
+          asset_proc:       timestamp_asset("silo"),
         ),
         FormulaConfig.new(
-          name: "mcli",
-          repo: "pgsty/mc",
-          tag_pattern: TIMESTAMP_TAG,
+          name:             "mcli",
+          repo:             "pgsty/mc",
+          tag_pattern:      TIMESTAMP_TAG,
           allow_prerelease: false,
-          nounzip: false,
+          nounzip:          false,
           explicit_version: true,
-          version_proc: method(:timestamp_version),
-          asset_proc: timestamp_asset("mcli"),
+          version_proc:     method(:timestamp_version),
+          asset_proc:       timestamp_asset("mcli"),
         ),
         FormulaConfig.new(
-          name: "silo-console",
-          repo: "pgsty/silo-console",
-          tag_pattern: SEMVER_TAG,
+          name:             "silo-console",
+          repo:             "pgsty/silo-console",
+          tag_pattern:      SEMVER_TAG,
           allow_prerelease: false,
-          nounzip: true,
+          nounzip:          true,
           explicit_version: false,
-          version_proc: method(:semver_version),
-          asset_proc: lambda do |_tag, platform|
+          version_proc:     method(:semver_version),
+          asset_proc:       lambda do |_tag, platform|
             "silo-console-#{platform.os}-#{platform.arch}"
           end,
         ),
         FormulaConfig.new(
-          name: "pig",
-          repo: "pgsty/pig",
-          tag_pattern: SEMVER_TAG,
+          name:             "pig",
+          repo:             "pgsty/pig",
+          tag_pattern:      SEMVER_TAG,
           allow_prerelease: false,
-          nounzip: false,
+          nounzip:          false,
           explicit_version: false,
-          version_proc: method(:semver_version),
-          asset_proc: lambda do |tag, platform|
+          version_proc:     method(:semver_version),
+          asset_proc:       lambda do |tag, platform|
             "pig-#{tag}.#{platform.os}-#{platform.arch}.tar.gz"
           end,
         ),
         FormulaConfig.new(
-          name: "sow",
-          repo: "pgsty/sow",
-          tag_pattern: SEMVER_TAG,
+          name:             "sow",
+          repo:             "pgsty/sow",
+          tag_pattern:      SEMVER_TAG,
           allow_prerelease: false,
-          nounzip: false,
+          nounzip:          false,
           explicit_version: false,
-          version_proc: method(:semver_version),
-          asset_proc: semver_asset("sow"),
+          version_proc:     method(:semver_version),
+          asset_proc:       semver_asset("sow"),
         ),
         FormulaConfig.new(
-          name: "farrow",
-          repo: "pgsty/farrow",
-          tag_pattern: SEMVER_TAG,
+          name:             "farrow",
+          repo:             "pgsty/farrow",
+          tag_pattern:      SEMVER_TAG,
           allow_prerelease: true,
-          nounzip: false,
+          nounzip:          false,
           explicit_version: false,
-          version_proc: method(:semver_version),
-          asset_proc: semver_asset("farrow"),
+          version_proc:     method(:semver_version),
+          asset_proc:       semver_asset("farrow"),
         ),
         FormulaConfig.new(
-          name: "pg-exporter",
-          repo: "pgsty/pg_exporter",
-          tag_pattern: SEMVER_TAG,
+          name:             "pg-exporter",
+          repo:             "pgsty/pg_exporter",
+          tag_pattern:      SEMVER_TAG,
           allow_prerelease: false,
-          nounzip: false,
+          nounzip:          false,
           explicit_version: false,
-          version_proc: method(:semver_version),
-          asset_proc: lambda do |tag, platform|
+          version_proc:     method(:semver_version),
+          asset_proc:       lambda do |tag, platform|
             version = semver_version(tag)
             "pg_exporter-#{version}.#{platform.os}-#{platform.arch}.tar.gz"
           end,
@@ -153,11 +154,12 @@ module PgstyTap
     end
   end
 
+  # Reads release metadata and verified digests from the GitHub API.
   class GitHubClient
     API_ROOT = "https://api.github.com"
     USER_AGENT = "pgsty-homebrew-tap-updater/1"
 
-    def initialize(token: ENV["GITHUB_TOKEN"] || ENV["GH_TOKEN"] || ENV["HOMEBREW_GITHUB_API_TOKEN"])
+    def initialize(token: ENV["GITHUB_TOKEN"] || ENV["GH_TOKEN"] || ENV.fetch("HOMEBREW_GITHUB_API_TOKEN", nil))
       @token = token || authenticated_gh_token
     end
 
@@ -184,14 +186,9 @@ module PgstyTap
       return match[1] if match
 
       url = asset.fetch("browser_download_url")
-      warn "GitHub did not provide a digest for #{asset.fetch('name')}; hashing the asset download"
+      warn "GitHub did not provide a digest for #{asset.fetch("name")}; hashing the asset download"
       digestor = Digest::SHA256.new
-      URI.open(url, "User-Agent" => USER_AGENT) do |io|
-        while (chunk = io.read(1024 * 1024))
-          digestor.update(chunk)
-        end
-      end
-      digestor.hexdigest
+      download_sha256(URI(url), digestor: digestor)
     end
 
     private
@@ -206,12 +203,44 @@ module PgstyTap
       nil
     end
 
+    def download_sha256(uri, digestor:, redirects: 5)
+      trusted_download_uri!(uri)
+      raise Error, "too many redirects while downloading #{uri}" if redirects.negative?
+
+      request = Net::HTTP::Get.new(uri)
+      request["User-Agent"] = USER_AGENT
+      http = Net::HTTP::Proxy(:ENV).new(uri.host, uri.port)
+      http.use_ssl = true
+      http.open_timeout = 15
+      http.read_timeout = 120
+
+      http.request(request) do |response|
+        if response.is_a?(Net::HTTPRedirection)
+          location = response.fetch("location")
+          return download_sha256(URI.join(uri, location), digestor: digestor, redirects: redirects - 1)
+        end
+        unless response.is_a?(Net::HTTPSuccess)
+          raise Error, "release asset download failed for #{uri}: HTTP #{response.code}"
+        end
+
+        response.read_body { |chunk| digestor.update(chunk) }
+      end
+      digestor.hexdigest
+    end
+
+    def trusted_download_uri!(uri)
+      trusted_host = uri.host == "github.com" || uri.host.to_s.end_with?(".githubusercontent.com")
+      return if uri.scheme == "https" && trusted_host
+
+      raise Error, "refusing untrusted release asset URL: #{uri}"
+    end
+
     def get_json(uri)
       request = Net::HTTP::Get.new(uri)
       request["Accept"] = "application/vnd.github+json"
       request["User-Agent"] = USER_AGENT
       request["X-GitHub-Api-Version"] = "2022-11-28"
-      request["Authorization"] = "Bearer #{@token}" if @token && !@token.empty?
+      request["Authorization"] = "Bearer #{@token}" unless @token.to_s.empty?
 
       http = Net::HTTP::Proxy(:ENV).new(uri.host, uri.port)
       http.use_ssl = true
@@ -226,6 +255,7 @@ module PgstyTap
     end
   end
 
+  # Atomically renders all platform URL/SHA pairs in one Formula.
   class FormulaUpdater
     VERSION_LINE = /^  version "[^"]+"$/
 
@@ -245,9 +275,10 @@ module PgstyTap
       lines = source.lines
       version_indexes = lines.each_index.select { |index| VERSION_LINE.match?(lines[index].chomp) }
       if config.explicit_version
-        unless version_indexes.length == 1
+        if version_indexes.length != 1
           raise Error, "#{path} must contain exactly one two-space-indented version line"
         end
+
         lines[version_indexes.first] = "  version \"#{version}\"\n"
       elsif !version_indexes.empty?
         raise Error, "#{path} must let Homebrew infer its version from the release URL"
@@ -257,7 +288,7 @@ module PgstyTap
       PLATFORMS.each do |platform|
         asset_name = config.asset_name(tag, platform)
         matches = assets.fetch(asset_name, [])
-        unless matches.length == 1
+        if matches.length != 1
           raise Error, "#{config.repo} #{tag} must provide exactly one #{asset_name} asset"
         end
 
@@ -281,7 +312,7 @@ module PgstyTap
 
     def validate_asset_url!(config, url)
       prefix = "https://github.com/#{config.repo}/releases/download/"
-      return if url.start_with?(prefix) && !url.include?('"') && !url.include?("\\")
+      return if url.start_with?(prefix) && !/["\\\\]/.match?(url)
 
       raise Error, "unexpected release asset URL for #{config.repo}: #{url}"
     end
@@ -289,14 +320,15 @@ module PgstyTap
     def replace_platform!(lines, path, platform, url, sha256, nounzip)
       marker = "# update: #{platform.key}"
       indexes = lines.each_index.select { |index| lines[index].strip == marker }
-      raise Error, "#{path} must contain exactly one #{marker} marker" unless indexes.length == 1
+      raise Error, "#{path} must contain exactly one #{marker} marker" if indexes.length != 1
 
       marker_index = indexes.first
       url_index = marker_index + 1
       sha_index = marker_index + 2
       url_match = /\A(\s*)url "[^"]+"(?:, using: :nounzip)?\s*\z/.match(lines.fetch(url_index))
       sha_match = /\A(\s*)sha256 "[0-9a-f]{64}"\s*\z/.match(lines.fetch(sha_index))
-      unless url_match && sha_match && url_match[1] == sha_match[1]
+      valid_block = url_match && sha_match && url_match[1] == sha_match[1]
+      unless valid_block
         raise Error, "#{path} has an invalid URL/SHA block after #{marker}"
       end
 
@@ -307,6 +339,7 @@ module PgstyTap
     end
   end
 
+  # Parses updater CLI options and defers all writes until every release validates.
   class Runner
     def initialize(argv, root: File.expand_path("..", __dir__))
       @root = root
@@ -318,14 +351,14 @@ module PgstyTap
       configs = Catalog.configs
       unless @options[:formulae].empty?
         unknown = @options[:formulae] - configs.map(&:name)
-        raise Error, "unknown formula: #{unknown.join(', ')}" unless unknown.empty?
+        raise Error, "unknown formula: #{unknown.join(", ")}" unless unknown.empty?
 
         configs = configs.select { |config| @options[:formulae].include?(config.name) }
       end
 
       updater = FormulaUpdater.new(root: @root, client: GitHubClient.new)
       rendered = configs.map { |config| updater.render(config) }
-      changed = rendered.select { |path, content, _tag| File.read(path) != content }
+      changed = rendered.reject { |path, content, _tag| File.read(path) == content }
 
       if @options[:check]
         changed.each { |path, _content, tag| warn "outdated: #{File.basename(path)} (latest #{tag})" }
@@ -354,7 +387,7 @@ module PgstyTap
         end
       end
       parser.parse!(argv)
-      raise Error, "unexpected arguments: #{argv.join(' ')}" unless argv.empty?
+      raise Error, "unexpected arguments: #{argv.join(" ")}" unless argv.empty?
     rescue OptionParser::ParseError => e
       raise Error, e.message
     end
@@ -364,7 +397,7 @@ end
 if $PROGRAM_NAME == __FILE__
   begin
     exit PgstyTap::Runner.new(ARGV).run
-  rescue PgstyTap::Error, JSON::ParserError, KeyError, OpenURI::HTTPError, SystemCallError => e
+  rescue PgstyTap::Error, JSON::ParserError, KeyError, SystemCallError, Timeout::Error => e
     warn "update-formulae: #{e.message}"
     exit 1
   end
