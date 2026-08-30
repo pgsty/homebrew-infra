@@ -312,7 +312,8 @@ module PgstyTap
 
     def validate_asset_url!(config, url)
       prefix = "https://github.com/#{config.repo}/releases/download/"
-      return if url.start_with?(prefix) && !/["\\\\]/.match?(url)
+      safe_characters = url.index('"').nil? && url.index("\\").nil?
+      return if url.start_with?(prefix) && safe_characters
 
       raise Error, "unexpected release asset URL for #{config.repo}: #{url}"
     end
