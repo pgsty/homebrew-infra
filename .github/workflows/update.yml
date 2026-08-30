@@ -1,0 +1,87 @@
+name: update formulae
+
+on:
+  schedule:
+    - cron: "17 2 * * *"
+  workflow_dispatch:
+
+permissions: {}
+
+defaults:
+  run:
+    shell: bash -xeuo pipefail {0}
+
+jobs:
+  update:
+    if: github.repository == 'pgsty/homebrew-tap'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Set up Homebrew and tap
+        id: set-up-homebrew
+        uses: Homebrew/actions/setup-homebrew@a657b8b0cd35d0f65cce41fce9b24cf054b49869 # 2026.08.24.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update release URLs and checksums
+        working-directory: ${{ steps.set-up-homebrew.outputs.repository-path }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: ruby scripts/update-formulae.rb
+
+      - name: Verify updater invariants
+        working-directory: ${{ steps.set-up-homebrew.outputs.repository-path }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ruby test/update_formulae_test.rb
+          ruby scripts/update-formulae.rb --check
+          git diff --check
+
+      - name: Audit formulae
+        env:
+          TAP_NAME: ${{ steps.set-up-homebrew.outputs.tap-name }}
+        run: |
+          brew style "$TAP_NAME"
+          for formula_path in Formula/*.rb; do
+            formula_name=$(basename "$formula_path" .rb)
+            brew audit --strict --online "$TAP_NAME/$formula_name"
+          done
+        working-directory: ${{ steps.set-up-homebrew.outputs.repository-path }}
+
+      - name: Detect changes
+        id: changes
+        working-directory: ${{ steps.set-up-homebrew.outputs.repository-path }}
+        run: |
+          if git diff --quiet -- Formula; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Set up git
+        if: steps.changes.outputs.changed == 'true'
+        uses: Homebrew/actions/git-user-config@a657b8b0cd35d0f65cce41fce9b24cf054b49869 # 2026.08.24.1
+
+      - name: Create or refresh update pull request
+        if: steps.changes.outputs.changed == 'true'
+        working-directory: ${{ steps.set-up-homebrew.outputs.repository-path }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          UPDATE_BRANCH: automation/formula-updates
+        run: |
+          git switch -C "$UPDATE_BRANCH"
+          git add Formula
+          git commit -m "chore: update Homebrew formulae"
+          git push --force origin "HEAD:refs/heads/$UPDATE_BRANCH"
+
+          pull_request=$(gh pr list --state open --head "$UPDATE_BRANCH" --json number --jq '.[0].number // empty')
+          if [[ -z "$pull_request" ]]; then
+            gh pr create \
+              --base main \
+              --head "$UPDATE_BRANCH" \
+              --title "chore: update Homebrew formulae" \
+              --body "Automated atomic refresh of PGSTY release URLs and SHA-256 digests. The update job completed updater tests, Homebrew style checks, and strict online audits before opening this pull request."
+          fi
