@@ -63,7 +63,8 @@ for its data path and service notes.
 - A scheduled updater changes all four platform URLs and hashes atomically and
   opens a reviewable pull request.
 - Homebrew's test-bot checks formula syntax and install/test behavior on macOS
-  and Linux for pull requests.
+  and Linux for pull requests. Automated update branches also dispatch a full
+  cross-OS install/test smoke run.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for the maintenance workflow and
 [SECURITY.md](SECURITY.md) for reporting integrity or security issues.

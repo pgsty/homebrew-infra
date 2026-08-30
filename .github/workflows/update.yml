@@ -16,6 +16,7 @@ jobs:
     if: github.repository == 'pgsty/homebrew-tap'
     runs-on: ubuntu-latest
     permissions:
+      actions: write
       contents: write
       pull-requests: write
     steps:
@@ -85,3 +86,5 @@ jobs:
               --title "chore: update Homebrew formulae" \
               --body "Automated atomic refresh of PGSTY release URLs and SHA-256 digests. The update job completed updater tests, Homebrew style checks, and strict online audits before opening this pull request."
           fi
+
+          gh workflow run tests.yml --ref "$UPDATE_BRANCH" --field smoke=true

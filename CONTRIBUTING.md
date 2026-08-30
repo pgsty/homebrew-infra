@@ -37,6 +37,9 @@ ruby scripts/update-formulae.rb --formula pig
 5. Run `./scripts/check.sh`, then install and test the Formula on at least one
    real supported host.
 
+Use the `brew test-bot` workflow's `smoke` dispatch to install and test the
+complete Formula set on both GitHub-hosted macOS and Linux runners.
+
 ## Delivery gates
 
 Report these independently: local audit/test, commit, push, GitHub Actions,

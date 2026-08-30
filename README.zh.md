@@ -62,7 +62,8 @@ brew services stop pgsty/tap/silo
 - 自动更新器忽略 Draft；除 Farrow 外也忽略 prerelease。Farrow 当前的
   `v0.1.0` 在上游明确标记为 prerelease，因此作为已知例外纳入。
 - 定时任务以原子方式同时更新四个平台的 URL 与摘要，并创建可审查的 PR。
-- Homebrew test-bot 在 PR 上分别验证 macOS 与 Linux 的语法、安装和测试。
+- Homebrew test-bot 在 PR 上分别验证 macOS 与 Linux 的语法、安装和测试；
+  自动更新分支还会触发覆盖全部 Formula 的跨系统安装冒烟测试。
 
 维护流程见 [CONTRIBUTING.md](CONTRIBUTING.md)，供应链或安全问题见
 [SECURITY.md](SECURITY.md)。

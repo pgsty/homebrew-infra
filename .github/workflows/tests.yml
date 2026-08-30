@@ -5,6 +5,13 @@ on:
     branches:
       - main
   pull_request:
+  workflow_dispatch:
+    inputs:
+      smoke:
+        description: Install and test every formula on macOS and Linux
+        required: true
+        type: boolean
+        default: true
 
 permissions: {}
 
@@ -48,6 +55,23 @@ jobs:
       - run: brew test-bot --only-tap-syntax
       - run: brew test-bot --only-formulae
         if: github.event_name == 'pull_request'
+
+      - name: Install and test every formula
+        if: github.event_name == 'workflow_dispatch' && inputs.smoke
+        working-directory: ${{ steps.set-up-homebrew.outputs.repository-path }}
+        env:
+          HOMEBREW_NO_AUTO_UPDATE: 1
+          TAP_NAME: ${{ steps.set-up-homebrew.outputs.tap-name }}
+        run: |
+          formulae=(silo mcli silo-console pig sow farrow pg-exporter)
+          qualified=()
+          for formula in "${formulae[@]}"; do
+            qualified+=("$TAP_NAME/$formula")
+          done
+          brew install "${qualified[@]}"
+          for formula in "${formulae[@]}"; do
+            brew test "$TAP_NAME/$formula"
+          done
 
       - name: Upload bottles as artifact
         if: always() && github.event_name == 'pull_request'
