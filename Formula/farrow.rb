@@ -4,7 +4,6 @@
 class Farrow < Formula
   desc "Native Go/QEMU runtime for Pigsty development VMs"
   homepage "https://farrow.pgsty.com"
-  version "0.1.0"
   license "Apache-2.0"
 
   depends_on "qemu"

@@ -4,7 +4,6 @@
 class PgExporter < Formula
   desc "Advanced PostgreSQL and PgBouncer metrics exporter for Prometheus"
   homepage "https://pigsty.io/docs/pg_exporter"
-  version "1.4.1"
   license "Apache-2.0"
 
   livecheck do

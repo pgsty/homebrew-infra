@@ -18,6 +18,7 @@ module PgstyTap
     :tag_pattern,
     :allow_prerelease,
     :nounzip,
+    :explicit_version,
     :version_proc,
     :asset_proc,
     keyword_init: true,
@@ -76,6 +77,7 @@ module PgstyTap
           tag_pattern: TIMESTAMP_TAG,
           allow_prerelease: false,
           nounzip: false,
+          explicit_version: true,
           version_proc: method(:timestamp_version),
           asset_proc: timestamp_asset("silo"),
         ),
@@ -85,6 +87,7 @@ module PgstyTap
           tag_pattern: TIMESTAMP_TAG,
           allow_prerelease: false,
           nounzip: false,
+          explicit_version: true,
           version_proc: method(:timestamp_version),
           asset_proc: timestamp_asset("mcli"),
         ),
@@ -94,6 +97,7 @@ module PgstyTap
           tag_pattern: SEMVER_TAG,
           allow_prerelease: false,
           nounzip: true,
+          explicit_version: false,
           version_proc: method(:semver_version),
           asset_proc: lambda do |_tag, platform|
             "silo-console-#{platform.os}-#{platform.arch}"
@@ -105,6 +109,7 @@ module PgstyTap
           tag_pattern: SEMVER_TAG,
           allow_prerelease: false,
           nounzip: false,
+          explicit_version: false,
           version_proc: method(:semver_version),
           asset_proc: lambda do |tag, platform|
             "pig-#{tag}.#{platform.os}-#{platform.arch}.tar.gz"
@@ -116,6 +121,7 @@ module PgstyTap
           tag_pattern: SEMVER_TAG,
           allow_prerelease: false,
           nounzip: false,
+          explicit_version: false,
           version_proc: method(:semver_version),
           asset_proc: semver_asset("sow"),
         ),
@@ -125,6 +131,7 @@ module PgstyTap
           tag_pattern: SEMVER_TAG,
           allow_prerelease: true,
           nounzip: false,
+          explicit_version: false,
           version_proc: method(:semver_version),
           asset_proc: semver_asset("farrow"),
         ),
@@ -134,6 +141,7 @@ module PgstyTap
           tag_pattern: SEMVER_TAG,
           allow_prerelease: false,
           nounzip: false,
+          explicit_version: false,
           version_proc: method(:semver_version),
           asset_proc: lambda do |tag, platform|
             version = semver_version(tag)
@@ -225,10 +233,14 @@ module PgstyTap
       source = File.read(path)
       lines = source.lines
       version_indexes = lines.each_index.select { |index| VERSION_LINE.match?(lines[index].chomp) }
-      unless version_indexes.length == 1
-        raise Error, "#{path} must contain exactly one two-space-indented version line"
+      if config.explicit_version
+        unless version_indexes.length == 1
+          raise Error, "#{path} must contain exactly one two-space-indented version line"
+        end
+        lines[version_indexes.first] = "  version \"#{version}\"\n"
+      elsif !version_indexes.empty?
+        raise Error, "#{path} must let Homebrew infer its version from the release URL"
       end
-      lines[version_indexes.first] = "  version \"#{version}\"\n"
 
       assets = release.fetch("assets").group_by { |asset| asset.fetch("name") }
       PLATFORMS.each do |platform|

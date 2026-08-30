@@ -4,7 +4,6 @@
 class SiloConsole < Formula
   desc "Administrative web console for Silo and MinIO servers"
   homepage "https://silo.pgsty.com"
-  version "2.2.1"
   license "AGPL-3.0-or-later"
 
   livecheck do

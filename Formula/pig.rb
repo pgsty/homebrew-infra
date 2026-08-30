@@ -4,7 +4,6 @@
 class Pig < Formula
   desc "PostgreSQL extension package manager and administration CLI"
   homepage "https://pig.pgsty.com"
-  version "1.8.0"
   license "Apache-2.0"
 
   livecheck do

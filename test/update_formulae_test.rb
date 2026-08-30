@@ -47,6 +47,12 @@ class UpdateFormulaeTest < Minitest::Test
     assert_equal ["farrow"], accepting
   end
 
+  def test_only_timestamp_formulae_need_explicit_versions
+    explicit = configs.values.select(&:explicit_version).map(&:name).sort
+
+    assert_equal %w[mcli silo], explicit
+  end
+
   def test_each_formula_has_one_marker_per_platform
     root = File.expand_path("..", __dir__)
 

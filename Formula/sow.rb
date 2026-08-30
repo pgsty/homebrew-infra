@@ -4,7 +4,6 @@
 class Sow < Formula
   desc "Local RPM and DEB software repository manager"
   homepage "https://github.com/pgsty/sow"
-  version "0.4.0"
   license "Apache-2.0"
 
   livecheck do
