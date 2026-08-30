@@ -5,6 +5,7 @@ require "digest"
 require "json"
 require "net/http"
 require "open-uri"
+require "open3"
 require "optparse"
 require "uri"
 
@@ -156,8 +157,8 @@ module PgstyTap
     API_ROOT = "https://api.github.com"
     USER_AGENT = "pgsty-homebrew-tap-updater/1"
 
-    def initialize(token: ENV["GITHUB_TOKEN"] || ENV["GH_TOKEN"])
-      @token = token
+    def initialize(token: ENV["GITHUB_TOKEN"] || ENV["GH_TOKEN"] || ENV["HOMEBREW_GITHUB_API_TOKEN"])
+      @token = token || authenticated_gh_token
     end
 
     def latest_release(config)
@@ -194,6 +195,16 @@ module PgstyTap
     end
 
     private
+
+    def authenticated_gh_token
+      stdout, _stderr, status = Open3.capture3("gh", "auth", "token")
+      return unless status.success?
+
+      token = stdout.strip
+      token unless token.empty?
+    rescue Errno::ENOENT
+      nil
+    end
 
     def get_json(uri)
       request = Net::HTTP::Get.new(uri)
