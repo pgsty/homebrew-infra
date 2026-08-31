@@ -1,4 +1,4 @@
-name: brew test-bot
+name: Homebrew CI
 
 on:
   push:
@@ -20,7 +20,7 @@ defaults:
     shell: bash -xeuo pipefail {0}
 
 jobs:
-  test-bot:
+  test:
     strategy:
       matrix:
         os: [macos-26]
@@ -32,8 +32,6 @@ jobs:
     runs-on: ${{ matrix.os }}
     container: ${{ fromJSON(toJSON(matrix.container)) }} # zizmor: ignore[unpinned-images]
     permissions:
-      actions: read
-      checks: read
       contents: read
       pull-requests: read
     steps:
@@ -64,28 +62,23 @@ jobs:
           key: ${{ matrix.os }}-rubygems-${{ steps.set-up-homebrew.outputs.gems-hash }}
           restore-keys: ${{ matrix.os }}-rubygems-
 
-      - run: brew test-bot --only-cleanup-before
+      - name: Verify tap metadata and updater
         working-directory: ${{ steps.tap.outputs.path }}
-
-      - name: Restore tap link after Homebrew cleanup
         env:
-          TAP_PATH: ${{ steps.tap.outputs.path }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAP_NAME: ${{ steps.tap.outputs.name }}
         run: |
-          mkdir -p "$(dirname "$TAP_PATH")"
-          rm -rf "$TAP_PATH"
-          ln -s "$GITHUB_WORKSPACE" "$TAP_PATH"
-          brew trust pgsty/infra
-
-      - run: brew test-bot --only-setup
-        working-directory: ${{ steps.tap.outputs.path }}
-      - run: brew test-bot --only-tap-syntax
-        working-directory: ${{ steps.tap.outputs.path }}
-      - run: brew test-bot --only-formulae
-        if: github.event_name == 'pull_request'
-        working-directory: ${{ steps.tap.outputs.path }}
+          for formula_path in Formula/*.rb; do
+            ruby -c "$formula_path"
+          done
+          ruby test/update_formulae_test.rb
+          ruby scripts/update-formulae.rb --check
+          brew style "$TAP_NAME"
+          brew readall --aliases --os=all --arch=all "$TAP_NAME"
+          brew audit --except=installed --tap="$TAP_NAME"
 
       - name: Install and test every formula
-        if: github.event_name == 'workflow_dispatch' && inputs.smoke
+        if: github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && inputs.smoke)
         working-directory: ${{ steps.tap.outputs.path }}
         env:
           HOMEBREW_NO_AUTO_UPDATE: 1
@@ -103,10 +96,3 @@ jobs:
           for formula in "${formulae[@]}"; do
             brew test "$TAP_NAME/$formula"
           done
-
-      - name: Upload bottles as artifact
-        if: always() && github.event_name == 'pull_request'
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        with:
-          name: bottles_${{ matrix.os }}
-          path: "*.bottle.*"

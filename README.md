@@ -99,9 +99,9 @@ Set production credentials before starting Silo. Run
   current `v0.1.0` release is explicitly marked as a prerelease upstream.
 - A scheduled updater changes all four platform URLs and hashes atomically and
   opens a reviewable pull request only when versions change.
-- Homebrew test-bot checks tap syntax on every push and full install/test behavior
-  on pull requests. Automated update branches also dispatch a complete macOS and
-  Linux smoke run.
+- Homebrew CI explicitly runs `style`, cross-platform `readall`, and `audit`
+  against `pgsty/infra` on every push. Pull requests and automated update
+  branches also run a complete macOS and Linux install/test smoke matrix.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for the maintenance workflow and
 [SECURITY.md](SECURITY.md) for reporting integrity or security issues.
