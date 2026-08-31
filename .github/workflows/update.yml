@@ -44,15 +44,18 @@ jobs:
         working-directory: ${{ steps.tap.outputs.path }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: ruby scripts/update-formulae.rb
+        run: |
+          ruby_bin="$(brew --repository)/Library/Homebrew/vendor/portable-ruby/current/bin/ruby"
+          "$ruby_bin" scripts/update-formulae.rb
 
       - name: Verify updater invariants
         working-directory: ${{ steps.tap.outputs.path }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          ruby test/update_formulae_test.rb
-          ruby scripts/update-formulae.rb --check
+          ruby_bin="$(brew --repository)/Library/Homebrew/vendor/portable-ruby/current/bin/ruby"
+          "$ruby_bin" test/update_formulae_test.rb
+          "$ruby_bin" scripts/update-formulae.rb --check
           git diff --check
 
       - name: Audit formulae

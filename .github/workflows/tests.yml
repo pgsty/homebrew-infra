@@ -68,11 +68,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAP_NAME: ${{ steps.tap.outputs.name }}
         run: |
+          ruby_bin="$(brew --repository)/Library/Homebrew/vendor/portable-ruby/current/bin/ruby"
           for formula_path in Formula/*.rb; do
-            ruby -c "$formula_path"
+            "$ruby_bin" -c "$formula_path"
           done
-          ruby test/update_formulae_test.rb
-          ruby scripts/update-formulae.rb --check
+          "$ruby_bin" test/update_formulae_test.rb
+          "$ruby_bin" scripts/update-formulae.rb --check
           brew style "$TAP_NAME"
           brew readall --aliases --os=all --arch=all "$TAP_NAME"
           brew audit --except=installed --tap="$TAP_NAME"

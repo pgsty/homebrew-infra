@@ -8,7 +8,7 @@ projects. Keep source releases and tap updates as separate reviewable gates.
 The scheduled workflow runs the same command maintainers can run locally:
 
 ```bash
-ruby scripts/update-formulae.rb
+brew ruby -- scripts/update-formulae.rb
 git diff -- Formula
 ./scripts/check.sh
 ```
@@ -21,8 +21,8 @@ is written.
 Use `--check` in verification jobs and `--formula NAME` for focused work:
 
 ```bash
-ruby scripts/update-formulae.rb --check
-ruby scripts/update-formulae.rb --formula pig
+brew ruby -- scripts/update-formulae.rb --check
+brew ruby -- scripts/update-formulae.rb --formula pig
 ```
 
 ## Add a formula

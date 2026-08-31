@@ -3,14 +3,15 @@ set -euo pipefail
 
 tap_root=$(cd "$(dirname "$0")/.." && pwd -P)
 cd "${tap_root}"
+ruby_bin="$(brew --repository)/Library/Homebrew/vendor/portable-ruby/current/bin/ruby"
 
 for formula in Formula/*.rb
 do
-  ruby -c "${formula}" >/dev/null
+  "${ruby_bin}" -c "${formula}" >/dev/null
 done
 
-ruby test/update_formulae_test.rb
-ruby scripts/update-formulae.rb --check
+"${ruby_bin}" test/update_formulae_test.rb
+"${ruby_bin}" scripts/update-formulae.rb --check
 
 tap_name=${HOMEBREW_TAP_NAME:-pgsty/infra}
 if ! brew tap | grep -Fqx "${tap_name}"
