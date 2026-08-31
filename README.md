@@ -8,11 +8,12 @@ macOS, plus arm64 and x86_64 Linux. No compiler toolchain is required.
 
 ## Install
 
-The source repository is intentionally named `pgsty/infra`, not
-`pgsty/homebrew-infra`, so the first tap command must include its URL:
+The source repository follows Homebrew's naming convention as
+[`pgsty/homebrew-infra`](https://github.com/pgsty/homebrew-infra), so the tap
+can be added with its short name:
 
 ```bash
-brew tap pgsty/infra https://github.com/pgsty/infra
+brew tap pgsty/infra
 
 brew install pgsty/infra/pig
 brew install pgsty/infra/silo
@@ -109,7 +110,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the maintenance workflow and
 ## Local validation
 
 ```bash
-brew tap pgsty/infra /absolute/path/to/infra
+brew tap pgsty/infra /absolute/path/to/homebrew-infra
 ./scripts/check.sh
 ```
 

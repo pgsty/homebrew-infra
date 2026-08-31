@@ -13,7 +13,7 @@ defaults:
 
 jobs:
   update:
-    if: github.repository == 'pgsty/infra'
+    if: github.repository == 'pgsty/homebrew-infra'
     runs-on: ubuntu-latest
     permissions:
       actions: write

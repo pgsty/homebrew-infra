@@ -2,7 +2,7 @@
 
 Report a malicious or substituted release asset, checksum mismatch, unsafe
 Formula behavior, or updater/workflow vulnerability through a private
-[GitHub security advisory](https://github.com/pgsty/infra/security/advisories/new).
+[GitHub security advisory](https://github.com/pgsty/homebrew-infra/security/advisories/new).
 
 For vulnerabilities in an installed program itself, use the security contact
 or advisory page of that program's source repository. This tap owns Formula,

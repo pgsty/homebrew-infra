@@ -8,11 +8,12 @@ SHA-256，不需要在用户机器上安装 Go、Rust、Node.js 或其他编译�
 
 ## 安装
 
-源码仓库按要求命名为 `pgsty/infra`，而不是 `pgsty/homebrew-infra`，所以首次
-添加 Tap 时必须显式写出 URL：
+源码仓库现已按 Homebrew 约定命名为
+[`pgsty/homebrew-infra`](https://github.com/pgsty/homebrew-infra)，因此可以直接
+使用短名称添加 Tap：
 
 ```bash
-brew tap pgsty/infra https://github.com/pgsty/infra
+brew tap pgsty/infra
 
 brew install pgsty/infra/pig
 brew install pgsty/infra/silo
@@ -105,7 +106,7 @@ brew services stop pgsty/infra/silo
 ## 本地验收
 
 ```bash
-brew tap pgsty/infra /absolute/path/to/infra
+brew tap pgsty/infra /absolute/path/to/homebrew-infra
 ./scripts/check.sh
 ```
 
