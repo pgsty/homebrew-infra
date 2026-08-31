@@ -52,8 +52,10 @@ jobs:
         working-directory: ${{ steps.tap.outputs.path }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAP_NAME: ${{ steps.tap.outputs.name }}
         run: |
           ruby_bin="$(brew --repository)/Library/Homebrew/vendor/portable-ruby/current/bin/ruby"
+          brew style "$TAP_NAME"
           "$ruby_bin" test/update_formulae_test.rb
           "$ruby_bin" scripts/update-formulae.rb --check
           git diff --check
@@ -62,7 +64,6 @@ jobs:
         env:
           TAP_NAME: ${{ steps.tap.outputs.name }}
         run: |
-          brew style "$TAP_NAME"
           for formula_path in Formula/*.rb; do
             formula_name=$(basename "$formula_path" .rb)
             brew audit --strict --online "$TAP_NAME/$formula_name"

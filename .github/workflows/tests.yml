@@ -72,9 +72,9 @@ jobs:
           for formula_path in Formula/*.rb; do
             "$ruby_bin" -c "$formula_path"
           done
+          brew style "$TAP_NAME"
           "$ruby_bin" test/update_formulae_test.rb
           "$ruby_bin" scripts/update-formulae.rb --check
-          brew style "$TAP_NAME"
           brew readall --aliases --os=all --arch=all "$TAP_NAME"
           brew audit --except=installed --tap="$TAP_NAME"
 
