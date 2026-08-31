@@ -1,10 +1,20 @@
 # typed: strict
 # frozen_string_literal: true
 
-require "minitest/autorun"
 require_relative "../scripts/update-formulae"
 
-class UpdateFormulaeTest < Minitest::Test
+# Dependency-free regression checks for the release catalog and formula markers.
+class UpdateFormulaeTest
+  def initialize
+    @assertions = 0
+  end
+
+  def run
+    tests = self.class.instance_methods(false).grep(/^test_/).sort
+    tests.each { |test| public_send(test) }
+    puts "#{tests.length} tests, #{@assertions} assertions passed"
+  end
+
   def configs
     PgstyInfra::Catalog.configs.to_h { |config| [config.name, config] }
   end
@@ -71,4 +81,20 @@ class UpdateFormulaeTest < Minitest::Test
       end
     end
   end
+
+  private
+
+  def assert(value, message = "Expected a truthy value")
+    @assertions += 1
+    raise message unless value
+  end
+
+  def assert_equal(expected, actual, message = nil)
+    @assertions += 1
+    return if expected == actual
+
+    raise(message || "Expected #{expected.inspect}, got #{actual.inspect}")
+  end
 end
+
+UpdateFormulaeTest.new.run
