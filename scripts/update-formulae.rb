@@ -454,7 +454,9 @@ module PgstyInfra
     private
 
     def authenticated_gh_token
-      stdout, _stderr, status = Open3.capture3("gh", "auth", "token")
+      prefix_gh = File.join(ENV.fetch("HOMEBREW_PREFIX", ""), "bin", "gh")
+      gh = File.executable?(prefix_gh) ? prefix_gh : "gh"
+      stdout, _stderr, status = Open3.capture3(gh, "auth", "token")
       return unless status.success?
 
       token = stdout.strip
