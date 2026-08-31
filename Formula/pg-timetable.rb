@@ -3,7 +3,7 @@
 
 class PgTimetable < Formula
   desc "Advanced scheduling for PostgreSQL"
-  homepage "https://www.pg-timetable.org"
+  homepage "https://github.com/cybertec-postgresql/pg_timetable"
   license "PostgreSQL"
 
   on_macos do
