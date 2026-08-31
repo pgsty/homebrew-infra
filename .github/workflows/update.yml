@@ -20,16 +20,16 @@ jobs:
       contents: write
       pull-requests: write
     steps:
-      - name: Check out repository
-        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
-        with:
-          fetch-depth: 0
-
       - name: Set up Homebrew and tap
         id: set-up-homebrew
         uses: Homebrew/actions/setup-homebrew@a657b8b0cd35d0f65cce41fce9b24cf054b49869 # 2026.08.24.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check out repository
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          fetch-depth: 0
 
       - name: Link checkout as pgsty/infra tap
         id: tap
