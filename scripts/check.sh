@@ -10,8 +10,8 @@ do
   "${ruby_bin}" -c "${formula}" >/dev/null
 done
 
-"${ruby_bin}" test/update_formulae_test.rb
-"${ruby_bin}" scripts/update-formulae.rb --check
+brew ruby -- test/update_formulae_test.rb
+brew ruby -- scripts/update-formulae.rb --check
 
 tap_name=${HOMEBREW_TAP_NAME:-pgsty/infra}
 if ! brew tap | grep -Fqx "${tap_name}"
