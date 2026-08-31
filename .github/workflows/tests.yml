@@ -37,11 +37,27 @@ jobs:
       contents: read
       pull-requests: read
     steps:
+      - name: Check out repository
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          fetch-depth: 0
+
       - name: Set up Homebrew
         id: set-up-homebrew
         uses: Homebrew/actions/setup-homebrew@a657b8b0cd35d0f65cce41fce9b24cf054b49869 # 2026.08.24.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Link checkout as pgsty/infra tap
+        id: tap
+        run: |
+          tap_path="$(brew --repository)/Library/Taps/pgsty/homebrew-infra"
+          mkdir -p "$(dirname "$tap_path")"
+          rm -rf "$tap_path"
+          ln -s "$GITHUB_WORKSPACE" "$tap_path"
+          brew trust pgsty/infra
+          echo "name=pgsty/infra" >> "$GITHUB_OUTPUT"
+          echo "path=$tap_path" >> "$GITHUB_OUTPUT"
 
       - name: Cache Homebrew Bundler RubyGems
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -51,19 +67,26 @@ jobs:
           restore-keys: ${{ matrix.os }}-rubygems-
 
       - run: brew test-bot --only-cleanup-before
+        working-directory: ${{ steps.tap.outputs.path }}
       - run: brew test-bot --only-setup
+        working-directory: ${{ steps.tap.outputs.path }}
       - run: brew test-bot --only-tap-syntax
+        working-directory: ${{ steps.tap.outputs.path }}
       - run: brew test-bot --only-formulae
         if: github.event_name == 'pull_request'
+        working-directory: ${{ steps.tap.outputs.path }}
 
       - name: Install and test every formula
         if: github.event_name == 'workflow_dispatch' && inputs.smoke
-        working-directory: ${{ steps.set-up-homebrew.outputs.repository-path }}
+        working-directory: ${{ steps.tap.outputs.path }}
         env:
           HOMEBREW_NO_AUTO_UPDATE: 1
-          TAP_NAME: ${{ steps.set-up-homebrew.outputs.tap-name }}
+          TAP_NAME: ${{ steps.tap.outputs.name }}
         run: |
-          formulae=(silo mcli silo-console pig sow farrow pg-exporter)
+          formulae=()
+          for formula_path in Formula/*.rb; do
+            formulae+=("$(basename "$formula_path" .rb)")
+          done
           qualified=()
           for formula in "${formulae[@]}"; do
             qualified+=("$TAP_NAME/$formula")

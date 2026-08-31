@@ -13,27 +13,43 @@ defaults:
 
 jobs:
   update:
-    if: github.repository == 'pgsty/homebrew-tap'
+    if: github.repository == 'pgsty/infra'
     runs-on: ubuntu-latest
     permissions:
       actions: write
       contents: write
       pull-requests: write
     steps:
+      - name: Check out repository
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          fetch-depth: 0
+
       - name: Set up Homebrew and tap
         id: set-up-homebrew
         uses: Homebrew/actions/setup-homebrew@a657b8b0cd35d0f65cce41fce9b24cf054b49869 # 2026.08.24.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Link checkout as pgsty/infra tap
+        id: tap
+        run: |
+          tap_path="$(brew --repository)/Library/Taps/pgsty/homebrew-infra"
+          mkdir -p "$(dirname "$tap_path")"
+          rm -rf "$tap_path"
+          ln -s "$GITHUB_WORKSPACE" "$tap_path"
+          brew trust pgsty/infra
+          echo "name=pgsty/infra" >> "$GITHUB_OUTPUT"
+          echo "path=$tap_path" >> "$GITHUB_OUTPUT"
+
       - name: Update release URLs and checksums
-        working-directory: ${{ steps.set-up-homebrew.outputs.repository-path }}
+        working-directory: ${{ steps.tap.outputs.path }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: ruby scripts/update-formulae.rb
 
       - name: Verify updater invariants
-        working-directory: ${{ steps.set-up-homebrew.outputs.repository-path }}
+        working-directory: ${{ steps.tap.outputs.path }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -43,18 +59,18 @@ jobs:
 
       - name: Audit formulae
         env:
-          TAP_NAME: ${{ steps.set-up-homebrew.outputs.tap-name }}
+          TAP_NAME: ${{ steps.tap.outputs.name }}
         run: |
           brew style "$TAP_NAME"
           for formula_path in Formula/*.rb; do
             formula_name=$(basename "$formula_path" .rb)
             brew audit --strict --online "$TAP_NAME/$formula_name"
           done
-        working-directory: ${{ steps.set-up-homebrew.outputs.repository-path }}
+        working-directory: ${{ steps.tap.outputs.path }}
 
       - name: Detect changes
         id: changes
-        working-directory: ${{ steps.set-up-homebrew.outputs.repository-path }}
+        working-directory: ${{ steps.tap.outputs.path }}
         run: |
           if git diff --quiet -- Formula; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
@@ -68,7 +84,7 @@ jobs:
 
       - name: Create or refresh update pull request
         if: steps.changes.outputs.changed == 'true'
-        working-directory: ${{ steps.set-up-homebrew.outputs.repository-path }}
+        working-directory: ${{ steps.tap.outputs.path }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           UPDATE_BRANCH: automation/formula-updates

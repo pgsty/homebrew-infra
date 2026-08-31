@@ -31,7 +31,7 @@ ruby scripts/update-formulae.rb --formula pig
    repository. Do not point a Formula at a mutable branch artifact.
 2. Add a Formula with one `# update: <platform>` marker immediately before each
    URL/SHA pair.
-3. Add its release and asset-name contract to `PgstyTap::Catalog` in
+3. Add its release and asset-name contract to `PgstyInfra::Catalog` in
    `scripts/update-formulae.rb`.
 4. Extend `test/update_formulae_test.rb` and both README formula tables.
 5. Run `./scripts/check.sh`, then install and test the Formula on at least one

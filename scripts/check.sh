@@ -12,7 +12,7 @@ done
 ruby test/update_formulae_test.rb
 ruby scripts/update-formulae.rb --check
 
-tap_name=${HOMEBREW_TAP_NAME:-pgsty/tap}
+tap_name=${HOMEBREW_TAP_NAME:-pgsty/infra}
 if ! brew tap | grep -Fqx "${tap_name}"
 then
   printf 'tap %s is not installed; run: brew tap %s <repository-url-or-path>\n' "${tap_name}" "${tap_name}" >&2

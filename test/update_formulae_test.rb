@@ -6,15 +6,21 @@ require_relative "../scripts/update-formulae"
 
 class UpdateFormulaeTest < Minitest::Test
   def configs
-    PgstyTap::Catalog.configs.to_h { |config| [config.name, config] }
+    PgstyInfra::Catalog.configs.to_h { |config| [config.name, config] }
   end
 
   def platform(key)
-    PgstyTap::PLATFORMS.find { |candidate| candidate.key == key }
+    PgstyInfra::PLATFORMS.find { |candidate| candidate.key == key }
   end
 
   def test_catalog_contains_the_public_formula_set
-    assert_equal %w[farrow mcli pg-exporter pig silo silo-console sow], configs.keys.sort
+    expected = %w[
+      agentsview alertmanager blackbox-exporter farrow headscale kafka-exporter loki-canary mcli mongodb-exporter
+      mtail mysqld-exporter nginx-exporter pg-exporter pg-timetable pgbackrest-exporter pgschema pig pushgateway
+      redis-exporter
+      sabiql silo silo-console sow sql-studio stalwart victoria-traces zfs-exporter
+    ]
+    assert_equal expected.sort, configs.keys.sort
   end
 
   def test_timestamp_release_mapping
@@ -59,7 +65,7 @@ class UpdateFormulaeTest < Minitest::Test
 
     configs.each_value do |config|
       source = File.read(File.join(root, "Formula", "#{config.name}.rb"))
-      PgstyTap::PLATFORMS.each do |platform|
+      PgstyInfra::PLATFORMS.each do |platform|
         assert_equal 1, source.scan("# update: #{platform.key}").length,
                      "#{config.name} must have exactly one #{platform.key} marker"
       end
