@@ -68,6 +68,16 @@ jobs:
 
       - run: brew test-bot --only-cleanup-before
         working-directory: ${{ steps.tap.outputs.path }}
+
+      - name: Restore tap link after Homebrew cleanup
+        env:
+          TAP_PATH: ${{ steps.tap.outputs.path }}
+        run: |
+          mkdir -p "$(dirname "$TAP_PATH")"
+          rm -rf "$TAP_PATH"
+          ln -s "$GITHUB_WORKSPACE" "$TAP_PATH"
+          brew trust pgsty/infra
+
       - run: brew test-bot --only-setup
         working-directory: ${{ steps.tap.outputs.path }}
       - run: brew test-bot --only-tap-syntax
