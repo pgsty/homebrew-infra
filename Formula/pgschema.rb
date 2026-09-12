@@ -9,26 +9,26 @@ class Pgschema < Formula
   on_macos do
     on_arm do
       # update: darwin_arm64
-      url "https://github.com/pgplex/pgschema/releases/download/v1.12.5/pgschema-1.12.5-darwin-arm64", using: :nounzip
-      sha256 "45f72aad6d54d4c21815e19844c566690cf1150cb61358fd9a1839c0060bf9ea"
+      url "https://github.com/pgplex/pgschema/releases/download/v1.13.0/pgschema-1.13.0-darwin-arm64", using: :nounzip
+      sha256 "e4c57db61757de751db16541ec0aa7afcf24945d69950092193e0a92d96a7b51"
     end
     on_intel do
       # update: darwin_amd64
-      url "https://github.com/pgplex/pgschema/releases/download/v1.12.5/pgschema-1.12.5-darwin-amd64", using: :nounzip
-      sha256 "2ee3f1ae1041c159a5cf21226858144b9231c3da7e799a78eeec39c0ed38c2a8"
+      url "https://github.com/pgplex/pgschema/releases/download/v1.13.0/pgschema-1.13.0-darwin-amd64", using: :nounzip
+      sha256 "c2c3f711475d5e36a2ecb4fdc1d251bab74b1de3209e5118d59314217e691ac3"
     end
   end
 
   on_linux do
     on_arm do
       # update: linux_arm64
-      url "https://github.com/pgplex/pgschema/releases/download/v1.12.5/pgschema-1.12.5-linux-arm64", using: :nounzip
-      sha256 "a347cda5ce428109cd949ff2fcaccda380296016338722efa4488cd8e2f681ec"
+      url "https://github.com/pgplex/pgschema/releases/download/v1.13.0/pgschema-1.13.0-linux-arm64", using: :nounzip
+      sha256 "eb5dc9484c628b21f729d7740a2648e489de4ae0934b38a400e93a5c93cf46b2"
     end
     on_intel do
       # update: linux_amd64
-      url "https://github.com/pgplex/pgschema/releases/download/v1.12.5/pgschema-1.12.5-linux-amd64", using: :nounzip
-      sha256 "bcef715edb71321c6a27886fcc74a423f923c62d731852668314efcce1402698"
+      url "https://github.com/pgplex/pgschema/releases/download/v1.13.0/pgschema-1.13.0-linux-amd64", using: :nounzip
+      sha256 "75785f3750bc441b1f27390c8432d495a555801d0a1d7e58b5de4160a099db5d"
     end
   end
 

@@ -11,26 +11,26 @@ class Farrow < Formula
   on_macos do
     on_arm do
       # update: darwin_arm64
-      url "https://github.com/pgsty/farrow/releases/download/v0.5.0/farrow_0.5.0_darwin_arm64.tar.gz"
-      sha256 "67646535f3521ce5aea8c38cc57ae3f5b5624f41d168150bce71f979d8b6b4f8"
+      url "https://github.com/pgsty/farrow/releases/download/v0.6.0/farrow_0.6.0_darwin_arm64.tar.gz"
+      sha256 "48957843e68b979580a214133bc8fd59c3962f47304c7d3274b8e49106e53637"
     end
     on_intel do
       # update: darwin_amd64
-      url "https://github.com/pgsty/farrow/releases/download/v0.5.0/farrow_0.5.0_darwin_amd64.tar.gz"
-      sha256 "c7e772364443243837bc33be7d6c65fcd5ad6ef6c24fed730f738bdf89f57d45"
+      url "https://github.com/pgsty/farrow/releases/download/v0.6.0/farrow_0.6.0_darwin_amd64.tar.gz"
+      sha256 "d685b6d3b997c6ec0105d002e8d00205a603b30a48c56e4c40d4d966a1b2095a"
     end
   end
 
   on_linux do
     on_arm do
       # update: linux_arm64
-      url "https://github.com/pgsty/farrow/releases/download/v0.5.0/farrow_0.5.0_linux_arm64.tar.gz"
-      sha256 "846fc908a0c3f0b4bd1b2faef01620b1d1f5d0b954c8b7b3dc71c8ab791bfd9f"
+      url "https://github.com/pgsty/farrow/releases/download/v0.6.0/farrow_0.6.0_linux_arm64.tar.gz"
+      sha256 "091d5798ac03e9d726f024750efe142438ec63e065ede9e03c2ac0f4029978b4"
     end
     on_intel do
       # update: linux_amd64
-      url "https://github.com/pgsty/farrow/releases/download/v0.5.0/farrow_0.5.0_linux_amd64.tar.gz"
-      sha256 "c28b6109d36eaed127c56742a72ca1b7aa31c79dbb622de2ea8ce27a67482359"
+      url "https://github.com/pgsty/farrow/releases/download/v0.6.0/farrow_0.6.0_linux_amd64.tar.gz"
+      sha256 "9d0da7099fcb9d826384d5580f9ee781b3f46f15a7698c09c5cf7e5c66f5835b"
     end
   end
 
