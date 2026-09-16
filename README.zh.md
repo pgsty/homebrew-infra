@@ -31,7 +31,7 @@ PGSTY PostgreSQL CLI，而 Core 中的 `pig` 是 Apache Pig。
 
 | Formula | 安装命令 | 用途 | 发布来源 |
 |:--|:--|:--|:--|
-| `farrow` | `farrow` | Pigsty 开发虚拟机的原生 QEMU 运行时 | [`pgsty/farrow`](https://github.com/pgsty/farrow/releases) |
+| `farrow` | `farrow` | Pigsty 开发虚拟机的原生 QEMU 运行时；使用 `farrow up` 启动、`farrow ssh` 连接 | [`pgsty/farrow`](https://github.com/pgsty/farrow/releases) |
 | `mcli` | `mcli` | Silo/S3 命令行客户端 | [`pgsty/mc`](https://github.com/pgsty/mc/releases) |
 | `pg-exporter` | `pg_exporter` | PostgreSQL/PgBouncer Prometheus 监控导出器 | [`pgsty/pg_exporter`](https://github.com/pgsty/pg_exporter/releases) |
 | `pig` | `pig` | PostgreSQL 扩展包管理与运维 CLI | [`pgsty/pig`](https://github.com/pgsty/pig/releases) |
@@ -94,7 +94,7 @@ brew services stop pgsty/infra/silo
 
 - 每个 Formula 都分别固定四种 OS/CPU 组合的 Release 资产与 SHA-256。
 - 自动更新器忽略 Draft；除 Farrow 外也忽略 prerelease。Farrow 当前的
-  `v0.1.0` 在上游明确标记为 prerelease，因此作为已知例外纳入。
+  `v0.7.0` 在上游明确标记为 prerelease，因此作为已知例外纳入。
 - 定时任务以原子方式同时更新四个平台的 URL 与摘要，仅在版本变化时创建 PR。
 - Homebrew CI 在每次推送时对 `pgsty/infra` 显式执行 `style`、跨平台
   `readall` 与 `audit`；PR 和自动更新分支还会执行覆盖全部 Formula 的

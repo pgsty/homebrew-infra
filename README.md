@@ -33,7 +33,7 @@ canonical tap name.
 
 | Formula | Installed command | Purpose | Release source |
 |:--|:--|:--|:--|
-| `farrow` | `farrow` | Native QEMU runtime for Pigsty development VMs | [`pgsty/farrow`](https://github.com/pgsty/farrow/releases) |
+| `farrow` | `farrow` | Native QEMU runtime for Pigsty development VMs; start with `farrow up`, connect with `farrow ssh` | [`pgsty/farrow`](https://github.com/pgsty/farrow/releases) |
 | `mcli` | `mcli` | Silo/S3 command-line client | [`pgsty/mc`](https://github.com/pgsty/mc/releases) |
 | `pg-exporter` | `pg_exporter` | PostgreSQL/PgBouncer Prometheus exporter | [`pgsty/pg_exporter`](https://github.com/pgsty/pg_exporter/releases) |
 | `pig` | `pig` | PostgreSQL extension package manager and CLI | [`pgsty/pig`](https://github.com/pgsty/pig/releases) |
@@ -97,7 +97,7 @@ Set production credentials before starting Silo. Run
 
 - Formulae pin one GitHub Release asset and SHA-256 for each supported OS/CPU pair.
 - Draft releases are ignored. Prereleases are ignored except for Farrow, whose
-  current `v0.1.0` release is explicitly marked as a prerelease upstream.
+  current `v0.7.0` release is explicitly marked as a prerelease upstream.
 - A scheduled updater changes all four platform URLs and hashes atomically and
   opens a reviewable pull request only when versions change.
 - Homebrew CI explicitly runs `style`, cross-platform `readall`, and `audit`

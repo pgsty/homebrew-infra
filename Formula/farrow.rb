@@ -11,26 +11,26 @@ class Farrow < Formula
   on_macos do
     on_arm do
       # update: darwin_arm64
-      url "https://github.com/pgsty/farrow/releases/download/v0.5.0/farrow_0.5.0_darwin_arm64.tar.gz"
-      sha256 "67646535f3521ce5aea8c38cc57ae3f5b5624f41d168150bce71f979d8b6b4f8"
+      url "https://github.com/pgsty/farrow/releases/download/v0.7.0/farrow_0.7.0_darwin_arm64.tar.gz"
+      sha256 "63b16088400279dbb4da6b95e9cde27f44b523a76ad93d388d65ecdd641d0ae0"
     end
     on_intel do
       # update: darwin_amd64
-      url "https://github.com/pgsty/farrow/releases/download/v0.5.0/farrow_0.5.0_darwin_amd64.tar.gz"
-      sha256 "c7e772364443243837bc33be7d6c65fcd5ad6ef6c24fed730f738bdf89f57d45"
+      url "https://github.com/pgsty/farrow/releases/download/v0.7.0/farrow_0.7.0_darwin_amd64.tar.gz"
+      sha256 "dd62d7cd1f8335e021c81367489c64c3706f0a99ab669fd5324dbbd469cfcbf1"
     end
   end
 
   on_linux do
     on_arm do
       # update: linux_arm64
-      url "https://github.com/pgsty/farrow/releases/download/v0.5.0/farrow_0.5.0_linux_arm64.tar.gz"
-      sha256 "846fc908a0c3f0b4bd1b2faef01620b1d1f5d0b954c8b7b3dc71c8ab791bfd9f"
+      url "https://github.com/pgsty/farrow/releases/download/v0.7.0/farrow_0.7.0_linux_arm64.tar.gz"
+      sha256 "dff60de60249e0a8b239fedbab0c90e750fb744d962dbdc33dd48e82162fc8c2"
     end
     on_intel do
       # update: linux_amd64
-      url "https://github.com/pgsty/farrow/releases/download/v0.5.0/farrow_0.5.0_linux_amd64.tar.gz"
-      sha256 "c28b6109d36eaed127c56742a72ca1b7aa31c79dbb622de2ea8ce27a67482359"
+      url "https://github.com/pgsty/farrow/releases/download/v0.7.0/farrow_0.7.0_linux_amd64.tar.gz"
+      sha256 "c412e89d89a64aea1cf886e02f5b023e7f8154bcd8d6a40625f62a879a2beca8"
     end
   end
 
@@ -42,12 +42,18 @@ class Farrow < Formula
 
   def caveats
     <<~EOS
-      Prepare the host once, then start a lab:
-        farrow setup
+      Start a lab from an empty directory:
         farrow up
+        farrow ssh
 
-      Farrow setup installs or reuses its private host network and asks for
-      administrator access only when the host transaction requires it.
+      Interactive `up` creates the default inventory and offers to prepare
+      missing host dependencies. Repeat `farrow up` to retry unfinished guest
+      setup without restarting healthy VMs. For unattended setup, use
+      `farrow setup --yes` before `farrow up`.
+
+      Farrow treats data disks as disposable test storage: an unusable
+      filesystem, including a persistent disk, may be reset and reported as
+      data loss. Keep valuable data outside the lab disks.
     EOS
   end
 
