@@ -74,7 +74,8 @@ jobs:
           done
           brew style "$TAP_NAME"
           brew ruby -- test/update_formulae_test.rb
-          brew ruby -- scripts/update-formulae.rb --check
+          # The scheduled updater checks release freshness. A new upstream
+          # release must not invalidate an otherwise unchanged commit or PR.
           brew readall --aliases --os=all --arch=all "$TAP_NAME"
           brew audit --except=installed --tap="$TAP_NAME"
 

@@ -40,6 +40,11 @@ brew ruby -- scripts/update-formulae.rb --formula pig
 Use the `Homebrew CI` workflow's `smoke` dispatch to install and test the
 complete Formula set on both GitHub-hosted macOS and Linux runners.
 
+Homebrew CI validates the pinned formulae and their installation behavior.
+Release freshness is checked by the scheduled updater and `scripts/check.sh`,
+so a new upstream release does not make an unchanged commit or unrelated PR
+fail CI.
+
 ## Delivery gates
 
 Report these independently: local audit/test, commit, push, GitHub Actions,
