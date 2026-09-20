@@ -9,26 +9,26 @@ class LokiCanary < Formula
   on_macos do
     on_arm do
       # update: darwin_arm64
-      url "https://github.com/grafana/loki/releases/download/v3.7.7/loki-canary-darwin-arm64.zip"
-      sha256 "260f5fbd3e50238616cecc5b615f4aa09bc1054df0609e90c650b0378ff30086"
+      url "https://github.com/grafana/loki/releases/download/v3.7.8/loki-canary-darwin-arm64.zip"
+      sha256 "7c9ba87ea2a66d6cbe31e8561137f0bd4485e7355c1cb2ed15a0905cab44891a"
     end
     on_intel do
       # update: darwin_amd64
-      url "https://github.com/grafana/loki/releases/download/v3.7.7/loki-canary-darwin-amd64.zip"
-      sha256 "70bfc78f163779385a0a174a8cf329e398adf6e5e28496d835f9a9a69a50436b"
+      url "https://github.com/grafana/loki/releases/download/v3.7.8/loki-canary-darwin-amd64.zip"
+      sha256 "f8c52c1db60e6f69b0ea6d1878ee6b9247b59689876bcc42cadf7680aa8cd3b9"
     end
   end
 
   on_linux do
     on_arm do
       # update: linux_arm64
-      url "https://github.com/grafana/loki/releases/download/v3.7.7/loki-canary-linux-arm64.zip"
-      sha256 "d3d73fa4c6c88a667342d2dc0ed9218874235a8ef87b410a789a8f5add37e734"
+      url "https://github.com/grafana/loki/releases/download/v3.7.8/loki-canary-linux-arm64.zip"
+      sha256 "f21dbf9629d85963bed76e1974c1ffabc87f6cf21c58c6895699f4945be32acf"
     end
     on_intel do
       # update: linux_amd64
-      url "https://github.com/grafana/loki/releases/download/v3.7.7/loki-canary-linux-amd64.zip"
-      sha256 "1ba114e3838fbcc36daa7dbb35c6cb07e33030e1d0a68573527ca86300871f2d"
+      url "https://github.com/grafana/loki/releases/download/v3.7.8/loki-canary-linux-amd64.zip"
+      sha256 "c396f0a517366f3cef5e193b7820996129f51083a9eff244949ad1f5e6ac2cbd"
     end
   end
 
