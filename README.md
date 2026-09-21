@@ -97,7 +97,7 @@ Set production credentials before starting Silo. Run
 
 - Formulae pin one GitHub Release asset and SHA-256 for each supported OS/CPU pair.
 - Draft releases are ignored. Prereleases are ignored except for Farrow, whose
-  current `v0.7.0` release is explicitly marked as a prerelease upstream.
+  current `v0.8.0` release is explicitly marked as a prerelease upstream.
 - A scheduled updater changes all four platform URLs and hashes atomically and
   opens a reviewable pull request only when versions change.
 - Homebrew CI explicitly runs `style`, cross-platform `readall`, and `audit`

@@ -94,7 +94,7 @@ brew services stop pgsty/infra/silo
 
 - 每个 Formula 都分别固定四种 OS/CPU 组合的 Release 资产与 SHA-256。
 - 自动更新器忽略 Draft；除 Farrow 外也忽略 prerelease。Farrow 当前的
-  `v0.7.0` 在上游明确标记为 prerelease，因此作为已知例外纳入。
+  `v0.8.0` 在上游明确标记为 prerelease，因此作为已知例外纳入。
 - 定时任务以原子方式同时更新四个平台的 URL 与摘要，仅在版本变化时创建 PR。
 - Homebrew CI 在每次推送时对 `pgsty/infra` 显式执行 `style`、跨平台
   `readall` 与 `audit`；PR 和自动更新分支还会执行覆盖全部 Formula 的
