@@ -9,26 +9,26 @@ class RedisExporter < Formula
   on_macos do
     on_arm do
       # update: darwin_arm64
-      url "https://github.com/oliver006/redis_exporter/releases/download/v1.91.1/redis_exporter-v1.91.1.darwin-arm64.tar.gz"
-      sha256 "6e37b64f70919704bef2a3d55cf4afa608f0b383f749e891c2fe5c26dbe6e5d4"
+      url "https://github.com/oliver006/redis_exporter/releases/download/v1.92.0/redis_exporter-v1.92.0.darwin-arm64.tar.gz"
+      sha256 "a79eafc02f920debd2806d16a22117c58026c77b5bc3b08e5e32f25e578801fa"
     end
     on_intel do
       # update: darwin_amd64
-      url "https://github.com/oliver006/redis_exporter/releases/download/v1.91.1/redis_exporter-v1.91.1.darwin-amd64.tar.gz"
-      sha256 "2f1d510814f244a5bac83ba6529ba8fffa38f594eaaba4f61821ed781b7259ab"
+      url "https://github.com/oliver006/redis_exporter/releases/download/v1.92.0/redis_exporter-v1.92.0.darwin-amd64.tar.gz"
+      sha256 "d4c1446f674a3680d8b690fbccaa4c968fe8a52fe6512bf8d9bcd4fd21d79fff"
     end
   end
 
   on_linux do
     on_arm do
       # update: linux_arm64
-      url "https://github.com/oliver006/redis_exporter/releases/download/v1.91.1/redis_exporter-v1.91.1.linux-arm64.tar.gz"
-      sha256 "7ee124bd17733cce535b87da17e79f0346d3edb4a20759cf3bfca8b4e0d6886f"
+      url "https://github.com/oliver006/redis_exporter/releases/download/v1.92.0/redis_exporter-v1.92.0.linux-arm64.tar.gz"
+      sha256 "00ce9ba1fc0e6474e69d05e743e2b9b2ddeb89e35b23bf7c999a0667a737fd75"
     end
     on_intel do
       # update: linux_amd64
-      url "https://github.com/oliver006/redis_exporter/releases/download/v1.91.1/redis_exporter-v1.91.1.linux-amd64.tar.gz"
-      sha256 "4552451000b6345011bfc50d77fd3be625aa0be47ac07e98a40384038ecffaab"
+      url "https://github.com/oliver006/redis_exporter/releases/download/v1.92.0/redis_exporter-v1.92.0.linux-amd64.tar.gz"
+      sha256 "028736b15004c1f5c25508235a361d80f1989c577a458cc0dc97279c5269f709"
     end
   end
 
