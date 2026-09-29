@@ -33,13 +33,20 @@ canonical tap name.
 
 | Formula | Installed command | Purpose | Release source |
 |:--|:--|:--|:--|
-| `farrow` | `farrow` | Native QEMU runtime for Pigsty development VMs; start with `farrow up`, connect with `farrow ssh` | [`pgsty/farrow`](https://github.com/pgsty/farrow/releases) |
+| `farrow` | `farrow` | Native QEMU runtime for Pigsty development VMs; start with `farrow up`, connect with `farrow ssh` | [`pgsty/barn`](https://github.com/pgsty/barn/releases) |
 | `mcli` | `mcli` | Silo/S3 command-line client | [`pgsty/mc`](https://github.com/pgsty/mc/releases) |
 | `pg-exporter` | `pg_exporter` | PostgreSQL/PgBouncer Prometheus exporter | [`pgsty/pg_exporter`](https://github.com/pgsty/pg_exporter/releases) |
 | `pig` | `pig` | PostgreSQL extension package manager and CLI | [`pgsty/pig`](https://github.com/pgsty/pig/releases) |
 | `silo` | `silo` | S3-compatible object storage server | [`pgsty/silo`](https://github.com/pgsty/silo/releases) |
 | `silo-console` | `silo-console` | Administrative web console | [`pgsty/silo-console`](https://github.com/pgsty/silo-console/releases) |
 | `sow` | `sow` | Local RPM/DEB repository manager | [`pgsty/sow`](https://github.com/pgsty/sow/releases) |
+
+The project is now named Barn. This tap still packages the published Farrow
+0.8.0 assets from the renamed `pgsty/barn` repository; Barn 0.9.0 has not been
+published. When its four platform archives are available, replace the formula
+with `barn.rb` and switch the updater's formula name and asset prefix together,
+using the verified release checksums. No old-name alias or formula rename map
+will be added.
 
 ## Additional infrastructure software
 
@@ -96,8 +103,8 @@ Set production credentials before starting Silo. Run
 ## Release integrity and updates
 
 - Formulae pin one GitHub Release asset and SHA-256 for each supported OS/CPU pair.
-- Draft releases are ignored. Prereleases are ignored except for Farrow, whose
-  current `v0.8.0` release is explicitly marked as a prerelease upstream.
+- Draft releases are ignored. Prereleases are ignored except for the `farrow`
+  formula, whose published 0.8.0 release uses the prerelease channel upstream.
 - A scheduled updater changes all four platform URLs and hashes atomically and
   opens a reviewable pull request only when versions change.
 - Homebrew CI explicitly runs `style`, cross-platform `readall`, and `audit`

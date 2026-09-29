@@ -134,7 +134,7 @@ module PgstyInfra
         ),
         FormulaConfig.new(
           name:             "farrow",
-          repo:             "pgsty/farrow",
+          repo:             "pgsty/barn",
           tag_pattern:      SEMVER_TAG,
           allow_prerelease: true,
           nounzip:          false,

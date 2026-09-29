@@ -50,6 +50,16 @@ class UpdateFormulaeTest
     assert_equal "pig-v1.8.0.linux-amd64.tar.gz", pig.asset_name(tag, platform("linux_amd64"))
   end
 
+  def test_farrow_release_mapping_after_repository_rename
+    farrow = configs.fetch("farrow")
+
+    assert_equal "pgsty/barn", farrow.repo
+    PgstyInfra::PLATFORMS.each do |target|
+      assert_equal "farrow_0.8.0_#{target.os}_#{target.arch}.tar.gz",
+                   farrow.asset_name("v0.8.0", target)
+    end
+  end
+
   def test_raw_console_assets_are_marked_nounzip
     console = configs.fetch("silo-console")
 

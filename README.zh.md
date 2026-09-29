@@ -31,13 +31,18 @@ PGSTY PostgreSQL CLI，而 Core 中的 `pig` 是 Apache Pig。
 
 | Formula | 安装命令 | 用途 | 发布来源 |
 |:--|:--|:--|:--|
-| `farrow` | `farrow` | Pigsty 开发虚拟机的原生 QEMU 运行时；使用 `farrow up` 启动、`farrow ssh` 连接 | [`pgsty/farrow`](https://github.com/pgsty/farrow/releases) |
+| `farrow` | `farrow` | Pigsty 开发虚拟机的原生 QEMU 运行时；使用 `farrow up` 启动、`farrow ssh` 连接 | [`pgsty/barn`](https://github.com/pgsty/barn/releases) |
 | `mcli` | `mcli` | Silo/S3 命令行客户端 | [`pgsty/mc`](https://github.com/pgsty/mc/releases) |
 | `pg-exporter` | `pg_exporter` | PostgreSQL/PgBouncer Prometheus 监控导出器 | [`pgsty/pg_exporter`](https://github.com/pgsty/pg_exporter/releases) |
 | `pig` | `pig` | PostgreSQL 扩展包管理与运维 CLI | [`pgsty/pig`](https://github.com/pgsty/pig/releases) |
 | `silo` | `silo` | S3 兼容对象存储服务 | [`pgsty/silo`](https://github.com/pgsty/silo/releases) |
 | `silo-console` | `silo-console` | 对象存储管理控制台 | [`pgsty/silo-console`](https://github.com/pgsty/silo-console/releases) |
 | `sow` | `sow` | 本地 RPM/DEB 软件仓库管理器 | [`pgsty/sow`](https://github.com/pgsty/sow/releases) |
+
+项目现已更名为 Barn。本 tap 仍使用已发布的 Farrow 0.8.0 资产，下载来源已切至
+更名后的 `pgsty/barn` 仓库；Barn 0.9.0 尚未发布。待四个平台的归档可用后，再基于
+真实发布校验和将配方替换为 `barn.rb`，并同步切换自动更新器中的配方名与资产前缀。
+不添加旧名称别名或 formula rename 映射。
 
 ## 额外基础设施软件
 
@@ -93,8 +98,8 @@ brew services stop pgsty/infra/silo
 ## 发布完整性与自动更新
 
 - 每个 Formula 都分别固定四种 OS/CPU 组合的 Release 资产与 SHA-256。
-- 自动更新器忽略 Draft；除 Farrow 外也忽略 prerelease。Farrow 当前的
-  `v0.8.0` 在上游明确标记为 prerelease，因此作为已知例外纳入。
+- 自动更新器忽略 Draft；除 `farrow` 配方外也忽略 prerelease。其已发布的 0.8.0
+  在上游使用 prerelease 通道，因此作为已知例外纳入。
 - 定时任务以原子方式同时更新四个平台的 URL 与摘要，仅在版本变化时创建 PR。
 - Homebrew CI 在每次推送时对 `pgsty/infra` 显式执行 `style`、跨平台
   `readall` 与 `audit`；PR 和自动更新分支还会执行覆盖全部 Formula 的
