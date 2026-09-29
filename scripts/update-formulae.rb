@@ -133,16 +133,6 @@ module PgstyInfra
           asset_proc:       semver_asset("sow"),
         ),
         FormulaConfig.new(
-          name:             "farrow",
-          repo:             "pgsty/barn",
-          tag_pattern:      SEMVER_TAG,
-          allow_prerelease: true,
-          nounzip:          false,
-          explicit_version: false,
-          version_proc:     method(:semver_version),
-          asset_proc:       semver_asset("farrow"),
-        ),
-        FormulaConfig.new(
           name:             "pg-exporter",
           repo:             "pgsty/pg_exporter",
           tag_pattern:      SEMVER_TAG,

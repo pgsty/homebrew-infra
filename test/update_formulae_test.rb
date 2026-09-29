@@ -23,9 +23,9 @@ class UpdateFormulaeTest
     PgstyInfra::PLATFORMS.find { |candidate| candidate.key == key }
   end
 
-  def test_catalog_contains_the_public_formula_set
+  def test_catalog_contains_the_release_formula_set
     expected = %w[
-      agentsview alertmanager blackbox-exporter farrow headscale kafka-exporter loki-canary mcli mongodb-exporter
+      agentsview alertmanager blackbox-exporter headscale kafka-exporter loki-canary mcli mongodb-exporter
       mtail mysqld-exporter nginx-exporter pg-exporter pg-timetable pgbackrest-exporter pgschema pig pushgateway
       redis-exporter
       sabiql silo silo-console sow sql-studio stalwart victoria-traces zfs-exporter
@@ -50,14 +50,12 @@ class UpdateFormulaeTest
     assert_equal "pig-v1.8.0.linux-amd64.tar.gz", pig.asset_name(tag, platform("linux_amd64"))
   end
 
-  def test_farrow_release_mapping_after_repository_rename
-    farrow = configs.fetch("farrow")
+  def test_head_formula_is_outside_the_release_catalog
+    root = File.expand_path("..", __dir__)
+    formulae = Dir[File.join(root, "Formula", "*.rb")].map { |path| File.basename(path, ".rb") }
 
-    assert_equal "pgsty/barn", farrow.repo
-    PgstyInfra::PLATFORMS.each do |target|
-      assert_equal "farrow_0.8.0_#{target.os}_#{target.arch}.tar.gz",
-                   farrow.asset_name("v0.8.0", target)
-    end
+    assert_equal ["barn"], formulae.sort - configs.keys.sort
+    assert_equal [], configs.keys - formulae
   end
 
   def test_raw_console_assets_are_marked_nounzip
@@ -68,10 +66,10 @@ class UpdateFormulaeTest
                  console.asset_name("v2.2.1", platform("darwin_amd64"))
   end
 
-  def test_only_farrow_accepts_prereleases
+  def test_release_catalog_excludes_prereleases
     accepting = configs.values.select(&:allow_prerelease).map(&:name)
 
-    assert_equal ["farrow"], accepting
+    assert_equal [], accepting
   end
 
   def test_only_timestamp_formulae_need_explicit_versions

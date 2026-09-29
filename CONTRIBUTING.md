@@ -1,7 +1,8 @@
 # Contributing
 
-This tap packages release artifacts; it does not build or publish upstream
-projects. Keep source releases and tap updates as separate reviewable gates.
+This tap packages release artifacts and provides a source HEAD formula for
+Barn. It does not publish upstream projects. Keep source releases and tap
+updates as separate reviewable gates.
 
 ## Update existing formulae
 
@@ -25,7 +26,11 @@ brew ruby -- scripts/update-formulae.rb --check
 brew ruby -- scripts/update-formulae.rb --formula pig
 ```
 
-## Add a formula
+Barn uses `head` to build the current `main` branch with the upstream build
+script. It has no release entry in `PgstyInfra::Catalog`. Verify it with
+`brew install --HEAD pgsty/infra/barn` and `brew test pgsty/infra/barn`.
+
+## Add a release formula
 
 1. Publish tagged binaries for Darwin/Linux on arm64/amd64 in the upstream
    repository. Do not point a Formula at a mutable branch artifact.

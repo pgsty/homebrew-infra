@@ -2,9 +2,9 @@
 
 [中文说明](README.zh.md) · [PGSTY](https://pgsty.com)
 
-Prebuilt Homebrew formulae for PGSTY and infrastructure software. Every Formula
-pins native upstream binaries and SHA-256 checksums for Apple Silicon and Intel
-macOS, plus arm64 and x86_64 Linux. No compiler toolchain is required.
+Homebrew formulae for PGSTY and infrastructure software. Release formulae pin
+native upstream binaries and SHA-256 checksums for Apple Silicon and Intel
+macOS, plus arm64 and x86_64 Linux. Barn builds its development source with Go.
 
 ## Install
 
@@ -33,7 +33,7 @@ canonical tap name.
 
 | Formula | Installed command | Purpose | Release source |
 |:--|:--|:--|:--|
-| `farrow` | `farrow` | Native QEMU runtime for Pigsty development VMs; start with `farrow up`, connect with `farrow ssh` | [`pgsty/barn`](https://github.com/pgsty/barn/releases) |
+| `barn` | `barn` | Native QEMU runtime for Pigsty development VMs; start with `barn up`, connect with `barn ssh` | [`pgsty/barn` HEAD](https://github.com/pgsty/barn) |
 | `mcli` | `mcli` | Silo/S3 command-line client | [`pgsty/mc`](https://github.com/pgsty/mc/releases) |
 | `pg-exporter` | `pg_exporter` | PostgreSQL/PgBouncer Prometheus exporter | [`pgsty/pg_exporter`](https://github.com/pgsty/pg_exporter/releases) |
 | `pig` | `pig` | PostgreSQL extension package manager and CLI | [`pgsty/pig`](https://github.com/pgsty/pig/releases) |
@@ -41,12 +41,15 @@ canonical tap name.
 | `silo-console` | `silo-console` | Administrative web console | [`pgsty/silo-console`](https://github.com/pgsty/silo-console/releases) |
 | `sow` | `sow` | Local RPM/DEB repository manager | [`pgsty/sow`](https://github.com/pgsty/sow/releases) |
 
-The project is now named Barn. This tap still packages the published Farrow
-0.8.0 assets from the renamed `pgsty/barn` repository; Barn 0.9.0 has not been
-published. When its four platform archives are available, replace the formula
-with `barn.rb` and switch the updater's formula name and asset prefix together,
-using the verified release checksums. No old-name alias or formula rename map
-will be added.
+Barn currently installs from the development branch:
+
+```bash
+brew install --HEAD pgsty/infra/barn
+```
+
+Homebrew builds the Barn CLI and its matching hosts helper from source and
+installs QEMU. Barn is not managed by the release-asset updater. A versioned
+formula will be added when Barn release archives are available.
 
 ## Additional infrastructure software
 
@@ -102,9 +105,8 @@ Set production credentials before starting Silo. Run
 
 ## Release integrity and updates
 
-- Formulae pin one GitHub Release asset and SHA-256 for each supported OS/CPU pair.
-- Draft releases are ignored. Prereleases are ignored except for the `farrow`
-  formula, whose published 0.8.0 release uses the prerelease channel upstream.
+- Release formulae pin one GitHub Release asset and SHA-256 for each supported OS/CPU pair.
+- The release updater ignores drafts and prereleases; Barn uses source HEAD.
 - A scheduled updater changes all four platform URLs and hashes atomically and
   opens a reviewable pull request only when versions change.
 - Homebrew CI explicitly runs `style`, cross-platform `readall`, and `audit`
