@@ -4,7 +4,7 @@
 
 Homebrew formulae for PGSTY and infrastructure software. Release formulae pin
 native upstream binaries and SHA-256 checksums for Apple Silicon and Intel
-macOS, plus arm64 and x86_64 Linux. Barn builds its development source with Go.
+macOS, plus arm64 and x86_64 Linux.
 
 ## Install
 
@@ -33,7 +33,7 @@ canonical tap name.
 
 | Formula | Installed command | Purpose | Release source |
 |:--|:--|:--|:--|
-| `barn` | `barn` | Native QEMU runtime for Pigsty development VMs; start with `barn up`, connect with `barn ssh` | [`pgsty/barn` HEAD](https://github.com/pgsty/barn) |
+| `barn` | `barn` | Native QEMU runtime for Pigsty development VMs; start with `barn up`, connect with `barn ssh` | [`pgsty/barn`](https://github.com/pgsty/barn/releases) |
 | `mcli` | `mcli` | Silo/S3 command-line client | [`pgsty/mc`](https://github.com/pgsty/mc/releases) |
 | `pg-exporter` | `pg_exporter` | PostgreSQL/PgBouncer Prometheus exporter | [`pgsty/pg_exporter`](https://github.com/pgsty/pg_exporter/releases) |
 | `pig` | `pig` | PostgreSQL extension package manager and CLI | [`pgsty/pig`](https://github.com/pgsty/pig/releases) |
@@ -41,15 +41,16 @@ canonical tap name.
 | `silo-console` | `silo-console` | Administrative web console | [`pgsty/silo-console`](https://github.com/pgsty/silo-console/releases) |
 | `sow` | `sow` | Local RPM/DEB repository manager | [`pgsty/sow`](https://github.com/pgsty/sow/releases) |
 
-Barn currently installs from the development branch:
+Install Barn's prebuilt release:
 
 ```bash
-brew install --HEAD pgsty/infra/barn
+brew install pgsty/infra/barn
 ```
 
-Homebrew builds the Barn CLI and its matching hosts helper from source and
-installs QEMU. Barn is not managed by the release-asset updater. A versioned
-formula will be added when Barn release archives are available.
+Homebrew installs the Barn CLI, its matching hosts helper, and QEMU. Go is not
+required. Barn's 0.x releases are published with GitHub's prerelease flag, so
+its generated formula is updated as part of each Barn release rather than by
+the stable-release updater.
 
 ## Additional infrastructure software
 
@@ -106,7 +107,7 @@ Set production credentials before starting Silo. Run
 ## Release integrity and updates
 
 - Release formulae pin one GitHub Release asset and SHA-256 for each supported OS/CPU pair.
-- The release updater ignores drafts and prereleases; Barn uses source HEAD.
+- The release updater ignores drafts and prereleases; Barn's 0.x formula is updated with each Barn release.
 - A scheduled updater changes all four platform URLs and hashes atomically and
   opens a reviewable pull request only when versions change.
 - Homebrew CI explicitly runs `style`, cross-platform `readall`, and `audit`

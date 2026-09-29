@@ -4,7 +4,6 @@
 
 这是 PGSTY 与基础设施软件的 Homebrew 仓库。版本配方分别固定 Apple Silicon、
 Intel macOS、arm64 Linux 与 x86_64 Linux 的上游原生制成品和 SHA-256。
-Barn 开发版使用 Go 从源码构建。
 
 ## 安装
 
@@ -31,7 +30,7 @@ PGSTY PostgreSQL CLI，而 Core 中的 `pig` 是 Apache Pig。
 
 | Formula | 安装命令 | 用途 | 发布来源 |
 |:--|:--|:--|:--|
-| `barn` | `barn` | Pigsty 开发虚拟机的原生 QEMU 运行时；使用 `barn up` 启动、`barn ssh` 连接 | [`pgsty/barn` HEAD](https://github.com/pgsty/barn) |
+| `barn` | `barn` | Pigsty 开发虚拟机的原生 QEMU 运行时；使用 `barn up` 启动、`barn ssh` 连接 | [`pgsty/barn`](https://github.com/pgsty/barn/releases) |
 | `mcli` | `mcli` | Silo/S3 命令行客户端 | [`pgsty/mc`](https://github.com/pgsty/mc/releases) |
 | `pg-exporter` | `pg_exporter` | PostgreSQL/PgBouncer Prometheus 监控导出器 | [`pgsty/pg_exporter`](https://github.com/pgsty/pg_exporter/releases) |
 | `pig` | `pig` | PostgreSQL 扩展包管理与运维 CLI | [`pgsty/pig`](https://github.com/pgsty/pig/releases) |
@@ -39,14 +38,15 @@ PGSTY PostgreSQL CLI，而 Core 中的 `pig` 是 Apache Pig。
 | `silo-console` | `silo-console` | 对象存储管理控制台 | [`pgsty/silo-console`](https://github.com/pgsty/silo-console/releases) |
 | `sow` | `sow` | 本地 RPM/DEB 软件仓库管理器 | [`pgsty/sow`](https://github.com/pgsty/sow/releases) |
 
-Barn 当前从开发分支安装：
+安装 Barn 预编译发行版：
 
 ```bash
-brew install --HEAD pgsty/infra/barn
+brew install pgsty/infra/barn
 ```
 
-Homebrew 从源码构建 Barn CLI 及其配套 hosts helper，并安装 QEMU。Barn 不参与
-发布资产自动更新；待 Barn 版本归档可用后，再提供固定版本配方。
+Homebrew 安装 Barn CLI、配套 hosts helper 与 QEMU，不需要 Go。Barn 的 0.x
+发行版带有 GitHub prerelease 标记，因此生成的配方随每次 Barn 发布更新，
+不由只跟踪稳定发行版的自动更新器维护。
 
 ## 额外基础设施软件
 
@@ -102,7 +102,7 @@ brew services stop pgsty/infra/silo
 ## 发布完整性与自动更新
 
 - 版本配方分别固定四种 OS/CPU 组合的 Release 资产与 SHA-256。
-- 发布自动更新器忽略 Draft 和 prerelease；Barn 使用源码 HEAD。
+- 发布自动更新器忽略 Draft 和 prerelease；Barn 的 0.x 配方随每次 Barn 发布更新。
 - 定时任务以原子方式同时更新四个平台的 URL 与摘要，仅在版本变化时创建 PR。
 - Homebrew CI 在每次推送时对 `pgsty/infra` 显式执行 `style`、跨平台
   `readall` 与 `audit`；PR 和自动更新分支还会执行覆盖全部 Formula 的

@@ -50,7 +50,7 @@ class UpdateFormulaeTest
     assert_equal "pig-v1.8.0.linux-amd64.tar.gz", pig.asset_name(tag, platform("linux_amd64"))
   end
 
-  def test_head_formula_is_outside_the_release_catalog
+  def test_manually_published_formula_is_outside_the_release_catalog
     root = File.expand_path("..", __dir__)
     formulae = Dir[File.join(root, "Formula", "*.rb")].map { |path| File.basename(path, ".rb") }
 

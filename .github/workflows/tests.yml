@@ -92,11 +92,7 @@ jobs:
           done
           qualified=()
           for formula in "${formulae[@]}"; do
-            if [[ "$formula" == barn ]]; then
-              brew install --HEAD "$TAP_NAME/$formula"
-            else
-              qualified+=("$TAP_NAME/$formula")
-            fi
+            qualified+=("$TAP_NAME/$formula")
           done
           brew install "${qualified[@]}"
           for formula in "${formulae[@]}"; do
