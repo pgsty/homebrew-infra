@@ -9,26 +9,26 @@ class Pushgateway < Formula
   on_macos do
     on_arm do
       # update: darwin_arm64
-      url "https://github.com/prometheus/pushgateway/releases/download/v1.11.3/pushgateway-1.11.3.darwin-arm64.tar.gz"
-      sha256 "7a6f3e643a1b744b57fd3233df062d56c771bb1c623bae9e322c5127dddf8c04"
+      url "https://github.com/prometheus/pushgateway/releases/download/v1.11.4/pushgateway-1.11.4.darwin-arm64.tar.gz"
+      sha256 "ea2f59f76ba498268efb0b8d6fb0aa0bf428ee74e24301531b30e9eed5222041"
     end
     on_intel do
       # update: darwin_amd64
-      url "https://github.com/prometheus/pushgateway/releases/download/v1.11.3/pushgateway-1.11.3.darwin-amd64.tar.gz"
-      sha256 "3626e11ba4d828bcfc305b7e06d0d5f507f3837190d552f837480be0073219de"
+      url "https://github.com/prometheus/pushgateway/releases/download/v1.11.4/pushgateway-1.11.4.darwin-amd64.tar.gz"
+      sha256 "fb8367fdf97df4a53df6e1508e07e4f8f747184f1c1b6325d2884b8c64d6e979"
     end
   end
 
   on_linux do
     on_arm do
       # update: linux_arm64
-      url "https://github.com/prometheus/pushgateway/releases/download/v1.11.3/pushgateway-1.11.3.linux-arm64.tar.gz"
-      sha256 "727ff0098943657b44c21a029be9d9fcc4f249ec72dcb9f0a34aa66b2d5f1ecc"
+      url "https://github.com/prometheus/pushgateway/releases/download/v1.11.4/pushgateway-1.11.4.linux-arm64.tar.gz"
+      sha256 "022adcb52b919a800a5deeefb19533d6f3a76decd86af424197ccd5f1448e81d"
     end
     on_intel do
       # update: linux_amd64
-      url "https://github.com/prometheus/pushgateway/releases/download/v1.11.3/pushgateway-1.11.3.linux-amd64.tar.gz"
-      sha256 "bb0a44dee0953df9e8cd3c082981ff50327de56d965d83bdd9b0957d83921e38"
+      url "https://github.com/prometheus/pushgateway/releases/download/v1.11.4/pushgateway-1.11.4.linux-amd64.tar.gz"
+      sha256 "e6d631d1f511ce386de2dcbc3bd18a7165d8117588f2aefea15e89cf794751b3"
     end
   end
 
