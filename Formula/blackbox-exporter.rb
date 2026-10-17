@@ -9,26 +9,26 @@ class BlackboxExporter < Formula
   on_macos do
     on_arm do
       # update: darwin_arm64
-      url "https://github.com/prometheus/blackbox_exporter/releases/download/v0.28.0/blackbox_exporter-0.28.0.darwin-arm64.tar.gz"
-      sha256 "ec6c70ccca92e209dd22be76a4fa244f4bd31afdae3ddb2bb082144100ec52bb"
+      url "https://github.com/prometheus/blackbox_exporter/releases/download/v0.29.0/blackbox_exporter-0.29.0.darwin-arm64.tar.gz"
+      sha256 "5f4f1407f9f67a5c9a6df67803bb3a508df0a818fec885bf9790d141ac7e8c2e"
     end
     on_intel do
       # update: darwin_amd64
-      url "https://github.com/prometheus/blackbox_exporter/releases/download/v0.28.0/blackbox_exporter-0.28.0.darwin-amd64.tar.gz"
-      sha256 "12d7a3010235862d073bbb111b997870a50070bcda3b912bca8f0095cfda23c6"
+      url "https://github.com/prometheus/blackbox_exporter/releases/download/v0.29.0/blackbox_exporter-0.29.0.darwin-amd64.tar.gz"
+      sha256 "8c30ab992dbe8d2bdde45654df2c3dbbd0ceed6f951ddbbbfbb1c1138e09b1b7"
     end
   end
 
   on_linux do
     on_arm do
       # update: linux_arm64
-      url "https://github.com/prometheus/blackbox_exporter/releases/download/v0.28.0/blackbox_exporter-0.28.0.linux-arm64.tar.gz"
-      sha256 "63312be0983d85e5109710a7dc93df3051157ae581853fa3655d171cc1b2806e"
+      url "https://github.com/prometheus/blackbox_exporter/releases/download/v0.29.0/blackbox_exporter-0.29.0.linux-arm64.tar.gz"
+      sha256 "743c490a2386c5b77ad13e7af30cde48651c03ffe9f61d39b99c578baa7e8e34"
     end
     on_intel do
       # update: linux_amd64
-      url "https://github.com/prometheus/blackbox_exporter/releases/download/v0.28.0/blackbox_exporter-0.28.0.linux-amd64.tar.gz"
-      sha256 "caf5d242fb1cf6d5cb678f3f799f22703d4fafea26b03dcbbd7e1f1825e06329"
+      url "https://github.com/prometheus/blackbox_exporter/releases/download/v0.29.0/blackbox_exporter-0.29.0.linux-amd64.tar.gz"
+      sha256 "5512929259bb6164f68ebe20ce433ec43b8609e3a79c95324f5020e931488fb4"
     end
   end
 

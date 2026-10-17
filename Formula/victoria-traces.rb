@@ -9,26 +9,26 @@ class VictoriaTraces < Formula
   on_macos do
     on_arm do
       # update: darwin_arm64
-      url "https://github.com/VictoriaMetrics/VictoriaTraces/releases/download/v0.11.1/victoria-traces-darwin-arm64-v0.11.1.tar.gz"
-      sha256 "06dfee9581fadb5c05cbc214f46a1599d6d1453eb9658df4554d2c44588250e2"
+      url "https://github.com/VictoriaMetrics/VictoriaTraces/releases/download/v0.12.0/victoria-traces-darwin-arm64-v0.12.0.tar.gz"
+      sha256 "4bd3dbe20f73784567efd6ad07da2c6286d83365f7a800b805d1ce8040857858"
     end
     on_intel do
       # update: darwin_amd64
-      url "https://github.com/VictoriaMetrics/VictoriaTraces/releases/download/v0.11.1/victoria-traces-darwin-amd64-v0.11.1.tar.gz"
-      sha256 "62c9a80b0443aa2d888b60bc9879b30e0a1e7d1547134ca3ba4ec27b54983489"
+      url "https://github.com/VictoriaMetrics/VictoriaTraces/releases/download/v0.12.0/victoria-traces-darwin-amd64-v0.12.0.tar.gz"
+      sha256 "765825cc24ac21345ba92af8824996901a5032b29bdb768eb20975460792ac18"
     end
   end
 
   on_linux do
     on_arm do
       # update: linux_arm64
-      url "https://github.com/VictoriaMetrics/VictoriaTraces/releases/download/v0.11.1/victoria-traces-linux-arm64-v0.11.1.tar.gz"
-      sha256 "c258b0b26276b80654635d667ca0aff0d61f546ea591b9de95f0127636e351ad"
+      url "https://github.com/VictoriaMetrics/VictoriaTraces/releases/download/v0.12.0/victoria-traces-linux-arm64-v0.12.0.tar.gz"
+      sha256 "cb9756793fd0f19cc3ce1adecf6e0d1d4c8c88f1d084e96da02d266bdd96c814"
     end
     on_intel do
       # update: linux_amd64
-      url "https://github.com/VictoriaMetrics/VictoriaTraces/releases/download/v0.11.1/victoria-traces-linux-amd64-v0.11.1.tar.gz"
-      sha256 "ac831f2ed12806caa29b8369bb9e0a0fcd8153029f631e4784f51f83420c7f30"
+      url "https://github.com/VictoriaMetrics/VictoriaTraces/releases/download/v0.12.0/victoria-traces-linux-amd64-v0.12.0.tar.gz"
+      sha256 "67be031fb00635929b2d02a6e2ce7e5ebc8b2929f8e0d79fb54ab48bff0ca966"
     end
   end
 
