@@ -5,7 +5,6 @@
 class Barn < Formula
   desc "Native Go/QEMU runtime for Pigsty development VMs"
   homepage "https://barn.pgsty.com"
-  version "0.9.1"
   license "Apache-2.0"
 
   depends_on "qemu"
