@@ -5,6 +5,7 @@
 class Barn < Formula
   desc "Native Go/QEMU runtime for Pigsty development VMs"
   homepage "https://barn.pgsty.com"
+  version "0.9.1"
   license "Apache-2.0"
 
   depends_on "qemu"
@@ -12,34 +13,34 @@ class Barn < Formula
   on_macos do
     on_arm do
       # update: darwin_arm64
-      url "https://github.com/pgsty/barn/releases/download/v0.9.0/barn_0.9.0_darwin_arm64.tar.gz"
-      sha256 "0640a6dc5d8f8027be10c54e6ded7c97ab7c8c7c511017d6417c5cc87f064153"
+      url "https://github.com/pgsty/barn/releases/download/v0.9.1/barn_0.9.1_darwin_arm64.tar.gz"
+      sha256 "6a182a62d5aad3ce417fba99a0041ef9495eae5cb74d41760e51bfe2a1e593ec"
     end
     on_intel do
       # update: darwin_amd64
-      url "https://github.com/pgsty/barn/releases/download/v0.9.0/barn_0.9.0_darwin_amd64.tar.gz"
-      sha256 "6b8ba87f42ec3a930a9d506e805d094f408fd602c5bd962be2afcbccdd334d0a"
+      url "https://github.com/pgsty/barn/releases/download/v0.9.1/barn_0.9.1_darwin_amd64.tar.gz"
+      sha256 "46d5e542d0c570f22401c5b69b5f9975fcbc3d42337aeecf00f18c1ff07a1301"
     end
   end
 
   on_linux do
     on_arm do
       # update: linux_arm64
-      url "https://github.com/pgsty/barn/releases/download/v0.9.0/barn_0.9.0_linux_arm64.tar.gz"
-      sha256 "f2198b03655b7f320ce57e29868570d8740133102388474bbfbf1acdc39c2275"
+      url "https://github.com/pgsty/barn/releases/download/v0.9.1/barn_0.9.1_linux_arm64.tar.gz"
+      sha256 "d5c74cd6329003f040b7e408dcdd17836ec4882373f3de266604064e16922acf"
     end
     on_intel do
       # update: linux_amd64
-      url "https://github.com/pgsty/barn/releases/download/v0.9.0/barn_0.9.0_linux_amd64.tar.gz"
-      sha256 "4053280496b5dabb5fc25667069b45146e636b1ceccb0e27c1eca42fd8e00a13"
+      url "https://github.com/pgsty/barn/releases/download/v0.9.1/barn_0.9.1_linux_amd64.tar.gz"
+      sha256 "bb921a0b9279e00575bbc2c8343ab4e8ca0c3c05f17e4d42e7b6964fd8123a7b"
     end
   end
 
   def install
     bin.install "bin/barn"
     libexec.install "bin/barn-hosts-helper"
-    if (buildpath/"bin/Barn Mac.app").directory?
-      libexec.install "bin/Barn Mac.app"
+    if (buildpath/"bin/Barn.app").directory?
+      libexec.install "bin/Barn.app"
       doc.install "MACOS.md", "MACOS.json"
     end
     doc.install "README.md"
@@ -58,7 +59,7 @@ class Barn < Formula
       Use barn init full to customize a four-node lab before starting it.
       For unattended preparation, run barn setup --yes before barn up.
     EOS
-    return text unless (libexec/"Barn Mac.app").exist?
+    return text unless (libexec/"Barn.app").exist?
 
     text + <<~EOS
 
