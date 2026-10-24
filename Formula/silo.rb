@@ -4,7 +4,7 @@
 class Silo < Formula
   desc "S3-compatible object storage server maintained by PGSTY"
   homepage "https://silo.pgsty.com"
-  version "2026-09-16T00-00-00Z"
+  version "2026-10-18T00-00-00Z"
   license "AGPL-3.0-or-later"
 
   livecheck do
@@ -16,26 +16,26 @@ class Silo < Formula
   on_macos do
     on_arm do
       # update: darwin_arm64
-      url "https://github.com/pgsty/silo/releases/download/RELEASE.2026-09-16T00-00-00Z/silo_20260916000000.0.0_darwin_arm64.tar.gz"
-      sha256 "6bb442de06b644eeaf7ab0e5827e6fd5ec1dfcc9e9d482343d94f81c4047edb8"
+      url "https://github.com/pgsty/silo/releases/download/RELEASE.2026-10-18T00-00-00Z/silo_20261018000000.0.0_darwin_arm64.tar.gz"
+      sha256 "fdbc57117200c47d87d769301a32be54589844066028ec57efcc48c2886296f9"
     end
     on_intel do
       # update: darwin_amd64
-      url "https://github.com/pgsty/silo/releases/download/RELEASE.2026-09-16T00-00-00Z/silo_20260916000000.0.0_darwin_amd64.tar.gz"
-      sha256 "3e7aca5038c79f6c3f6047f16fdb7b84eb2a15f9b728474b7ac579b0ae7b13f3"
+      url "https://github.com/pgsty/silo/releases/download/RELEASE.2026-10-18T00-00-00Z/silo_20261018000000.0.0_darwin_amd64.tar.gz"
+      sha256 "17bac18cc32b5057c9d116033734c34545d431d75b4efb8dc10c7a0fac7e619f"
     end
   end
 
   on_linux do
     on_arm do
       # update: linux_arm64
-      url "https://github.com/pgsty/silo/releases/download/RELEASE.2026-09-16T00-00-00Z/silo_20260916000000.0.0_linux_arm64.tar.gz"
-      sha256 "6e697d3e1d70f2343fe829cd6820a0b840d4619f1dde546424de80e529636ed2"
+      url "https://github.com/pgsty/silo/releases/download/RELEASE.2026-10-18T00-00-00Z/silo_20261018000000.0.0_linux_arm64.tar.gz"
+      sha256 "f711c4d46d57c3b3fa365afab01150aab59b77c617f3d7987d77c6f9b6ea38b6"
     end
     on_intel do
       # update: linux_amd64
-      url "https://github.com/pgsty/silo/releases/download/RELEASE.2026-09-16T00-00-00Z/silo_20260916000000.0.0_linux_amd64.tar.gz"
-      sha256 "381e745510a8fb64323d7bb3207f95984b7f4ed826f4fcad318f97683c420c73"
+      url "https://github.com/pgsty/silo/releases/download/RELEASE.2026-10-18T00-00-00Z/silo_20261018000000.0.0_linux_amd64.tar.gz"
+      sha256 "e069b6425f0de944fea6c301773d5620fe8992bf0d16b6c5e42be57d666ee794"
     end
   end
 

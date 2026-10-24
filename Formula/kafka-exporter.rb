@@ -9,26 +9,26 @@ class KafkaExporter < Formula
   on_macos do
     on_arm do
       # update: darwin_arm64
-      url "https://github.com/danielqsj/kafka_exporter/releases/download/v1.10.0/kafka_exporter-1.10.0.darwin-arm64.tar.gz"
-      sha256 "1b700284a5ef09ce05c9959da87a20642e3f19409d348cddd82aa1c4c9a94900"
+      url "https://github.com/danielqsj/kafka_exporter/releases/download/v1.11.0/kafka_exporter-1.11.0.darwin-arm64.tar.gz"
+      sha256 "4c6856cb610a84400df2d64516b50ad187568c1399214d1e3dbf8d3b619a66ac"
     end
     on_intel do
       # update: darwin_amd64
-      url "https://github.com/danielqsj/kafka_exporter/releases/download/v1.10.0/kafka_exporter-1.10.0.darwin-amd64.tar.gz"
-      sha256 "132edf15765bf74708cba29c853ce8d574ff4d8e2920a5165fcaeaa396d9e3e9"
+      url "https://github.com/danielqsj/kafka_exporter/releases/download/v1.11.0/kafka_exporter-1.11.0.darwin-amd64.tar.gz"
+      sha256 "da70a5da19d08005b771ed09a6ce42cc854912b407606b8391b7b2146e17e9f1"
     end
   end
 
   on_linux do
     on_arm do
       # update: linux_arm64
-      url "https://github.com/danielqsj/kafka_exporter/releases/download/v1.10.0/kafka_exporter-1.10.0.linux-arm64.tar.gz"
-      sha256 "47c3c19eec67a511fde2afcc714f9cdc382642ffcd72a1ac4c9535d8d433fee1"
+      url "https://github.com/danielqsj/kafka_exporter/releases/download/v1.11.0/kafka_exporter-1.11.0.linux-arm64.tar.gz"
+      sha256 "4f5f0341cd5345d863b3017eb9bc143f653c43a7b37cd2bc5a6a4b028ef61c45"
     end
     on_intel do
       # update: linux_amd64
-      url "https://github.com/danielqsj/kafka_exporter/releases/download/v1.10.0/kafka_exporter-1.10.0.linux-amd64.tar.gz"
-      sha256 "246720dc4ecd8670801625423b7e44bbeb93115de07353cc6b4ea27e5bb7b87d"
+      url "https://github.com/danielqsj/kafka_exporter/releases/download/v1.11.0/kafka_exporter-1.11.0.linux-amd64.tar.gz"
+      sha256 "6a14dd10709d627d7be29a4b98fae8bb888761c7da54410e72bef8cdaf906e86"
     end
   end
 
