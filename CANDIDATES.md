@@ -1,6 +1,6 @@
 # Infra package admission
 
-This file records the 2026-08-31 assessment of the `pgsty/infra-pkg` catalog
+This file records the 2026-10-27 assessment of the `pgsty/infra-pkg` catalog
 for Homebrew distribution. It is an intake boundary, not a permanent blacklist.
 
 ## Admission contract
@@ -19,6 +19,10 @@ The updater fails the whole Formula update when any one of the four platform
 assets is missing. A source archive that could theoretically be cross-compiled
 is not equivalent to a published native binary.
 
+A universal macOS archive may serve both Darwin architectures. TigerBeetle's
+archive was checked for native arm64 and x86_64 executables; both formula
+branches pin the same URL and SHA-256. Linux still requires separate assets.
+
 ## Added from infra-pkg
 
 The initial intake adds 20 projects:
@@ -29,6 +33,10 @@ The initial intake adds 20 projects:
 `pg-timetable`, `pushgateway`, `redis-exporter`, `sabiql`, `sql-studio`,
 `stalwart`, `victoria-traces`, and `zfs-exporter`.
 
+The 2026-10-27 intake adds `kes`, `pgbot`, `pggo`, `pgterm`, and `tigerbeetle`.
+`pgterm` depends on `pgbot` for diagnostics. Silo, Silo Console, and the
+`pgsty/mc` client (`mcli`) were already present and are refreshed in this batch.
+
 ## Already covered by Homebrew
 
 These `infra-pkg` projects have a Homebrew Core Formula or default Cask and are
@@ -38,7 +46,8 @@ not duplicated here:
   `dblab`, `duckdb`, `etcd`, `garage`, `golang`, `gost`, `grafana`, `hugo`,
   `juicefs`, `kafka`, `logcli`, `loki`, `nodejs`, `openbao`, `opencode`,
   `opentofu`, `pgstream`, `postgrest`, `prometheus`, `promtail`, `rainfrog`,
-  `rclone`, `restic`, `seaweedfs`, `sqlcmd`, `uv`, `v2ray`, and `xray`.
+  `rclone`, `restic`, `seaweedfs`, `sqlcmd`, `tailcat`, `mcp-toolbox`, `uv`,
+  `v2ray`, and `xray`.
 - Equivalent Core names cover `node-exporter` as `node_exporter`,
   `victoria-metrics` as `victoriametrics`, and `victoria-logs` as
   `victorialogs`.
@@ -53,17 +62,17 @@ name is therefore part of its installation contract.
 
 ## Deferred
 
-- `npgsqlrest` and `pg-hardstorage`: current release assets provide Darwin
-  arm64 but not Darwin amd64.
-- `timescaledb-event-streamer`: current release assets provide Darwin amd64 but
-  not Darwin arm64.
-- `tigerbeetle`: one universal macOS archive covers both CPUs; admission waits
-  for explicit universal-asset support in the atomic updater instead of
-  duplicating one URL in two architecture branches.
+- `rustfs`, `npgsqlrest`, `pg-hardstorage`, and `vector`: current release assets
+  provide Darwin arm64 but not Darwin amd64.
+- `timescaledb-event-streamer` and `timescaledb-tools`: current release assets
+  provide Darwin amd64 but not Darwin arm64. The tools archive was inspected;
+  both `timescaledb-tune` and `timescaledb-parallel-copy` are x86_64 binaries.
+- `pgrundev/pgsync`: v0.1.1 is marked prerelease. Core's `pgsync` is the unrelated
+  `ankane/pgsync`; it does not cover this project.
 - `tigerfs`: native binaries exist, but the FUSE runtime and macOS kernel/system
   extension contract needs a separate installation and CI design.
 - `promscale`: upstream is discontinued and the retained release is obsolete.
-- `tailcat`: the catalog pins a source snapshot because upstream has no tagged
-  binary release.
+- Grafana datasource plugins are distributed through Grafana's plugin manager,
+  rather than installed as standalone commands.
 - Remaining recipes do not currently publish the complete four-platform native
   binary matrix required by this repository.

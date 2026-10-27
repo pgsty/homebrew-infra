@@ -9,26 +9,26 @@ class Pgschema < Formula
   on_macos do
     on_arm do
       # update: darwin_arm64
-      url "https://github.com/pgplex/pgschema/releases/download/v1.13.0/pgschema-1.13.0-darwin-arm64", using: :nounzip
-      sha256 "e4c57db61757de751db16541ec0aa7afcf24945d69950092193e0a92d96a7b51"
+      url "https://github.com/pgplex/pgschema/releases/download/v1.13.3/pgschema-1.13.3-darwin-arm64", using: :nounzip
+      sha256 "e092e17ac93bf39adabde0a34b3517cb1803dc2b162752cb5af844e3cf42c6cb"
     end
     on_intel do
       # update: darwin_amd64
-      url "https://github.com/pgplex/pgschema/releases/download/v1.13.0/pgschema-1.13.0-darwin-amd64", using: :nounzip
-      sha256 "c2c3f711475d5e36a2ecb4fdc1d251bab74b1de3209e5118d59314217e691ac3"
+      url "https://github.com/pgplex/pgschema/releases/download/v1.13.3/pgschema-1.13.3-darwin-amd64", using: :nounzip
+      sha256 "530de5c0e4aa1108f62125b13f1525d4d4d5ced49926c293d74ecf889340b7c9"
     end
   end
 
   on_linux do
     on_arm do
       # update: linux_arm64
-      url "https://github.com/pgplex/pgschema/releases/download/v1.13.0/pgschema-1.13.0-linux-arm64", using: :nounzip
-      sha256 "eb5dc9484c628b21f729d7740a2648e489de4ae0934b38a400e93a5c93cf46b2"
+      url "https://github.com/pgplex/pgschema/releases/download/v1.13.3/pgschema-1.13.3-linux-arm64", using: :nounzip
+      sha256 "12a439ef4fb02fce845470f0dec57e4b031aee30c17103e52e94814f725d9a8f"
     end
     on_intel do
       # update: linux_amd64
-      url "https://github.com/pgplex/pgschema/releases/download/v1.13.0/pgschema-1.13.0-linux-amd64", using: :nounzip
-      sha256 "75785f3750bc441b1f27390c8432d495a555801d0a1d7e58b5de4160a099db5d"
+      url "https://github.com/pgplex/pgschema/releases/download/v1.13.3/pgschema-1.13.3-linux-amd64", using: :nounzip
+      sha256 "83d5c6c08e19cdf09bbc00c44aa60ae7fd6047760e4107f17182a60915f2ae14"
     end
   end
 
@@ -36,6 +36,7 @@ class Pgschema < Formula
     platform = OS.mac? ? "darwin" : "linux"
     arch = Hardware::CPU.arm? ? "arm64" : "amd64"
     bin.install "pgschema-#{version}-#{platform}-#{arch}" => "pgschema"
+    chmod 0755, bin/"pgschema"
   end
 
   test do

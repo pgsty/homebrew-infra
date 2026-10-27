@@ -14,26 +14,26 @@ class Sow < Formula
   on_macos do
     on_arm do
       # update: darwin_arm64
-      url "https://github.com/pgsty/sow/releases/download/v0.5.0/sow_0.5.0_darwin_arm64.tar.gz"
-      sha256 "bb707c2506f408f9c4d14022e6e2e2a76ed130588f9527aa81ef79397d485efc"
+      url "https://github.com/pgsty/sow/releases/download/v0.6.1/sow_0.6.1_darwin_arm64.tar.gz"
+      sha256 "4a0e35d91d93d571883762a24f040f088c39c855b73e5db80fc92e1c03226415"
     end
     on_intel do
       # update: darwin_amd64
-      url "https://github.com/pgsty/sow/releases/download/v0.5.0/sow_0.5.0_darwin_amd64.tar.gz"
-      sha256 "65ba1f4a160f7515022a3639356ab6fa3ec191acb2d99d491330fcc1f6014dff"
+      url "https://github.com/pgsty/sow/releases/download/v0.6.1/sow_0.6.1_darwin_amd64.tar.gz"
+      sha256 "f0f092220d629285d64d0cb6defca0a9397e627855b252886a969f9fc1e78502"
     end
   end
 
   on_linux do
     on_arm do
       # update: linux_arm64
-      url "https://github.com/pgsty/sow/releases/download/v0.5.0/sow_0.5.0_linux_arm64.tar.gz"
-      sha256 "cbc5a34118c438df0657e80074507e8db7a048754182bc088d46afb5a6b7d5a2"
+      url "https://github.com/pgsty/sow/releases/download/v0.6.1/sow_0.6.1_linux_arm64.tar.gz"
+      sha256 "7553097c20d3e6b9c8943666e14506fd4f68ecef5d9985143a24066abb454815"
     end
     on_intel do
       # update: linux_amd64
-      url "https://github.com/pgsty/sow/releases/download/v0.5.0/sow_0.5.0_linux_amd64.tar.gz"
-      sha256 "3e14f2b1ce9debb0cbe3cc1a8983f0c46b843caa05eb92911714dcfdf6630d32"
+      url "https://github.com/pgsty/sow/releases/download/v0.6.1/sow_0.6.1_linux_amd64.tar.gz"
+      sha256 "8b173bf91d37501f4174b17f051d63bf6e078ccced6bce188d58f6ae5f385a6b"
     end
   end
 

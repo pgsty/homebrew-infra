@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 require_relative "../scripts/update-formulae"
+require "tmpdir"
 
 # Dependency-free regression checks for the release catalog and formula markers.
 class UpdateFormulaeTest
@@ -25,10 +26,10 @@ class UpdateFormulaeTest
 
   def test_catalog_contains_the_release_formula_set
     expected = %w[
-      agentsview alertmanager blackbox-exporter headscale kafka-exporter loki-canary mcli mongodb-exporter
-      mtail mysqld-exporter nginx-exporter pg-exporter pg-timetable pgbackrest-exporter pgschema pig pushgateway
-      redis-exporter
-      sabiql silo silo-console sow sql-studio stalwart victoria-traces zfs-exporter
+      agentsview alertmanager blackbox-exporter headscale kafka-exporter kes loki-canary mcli mongodb-exporter
+      mtail mysqld-exporter nginx-exporter pg-exporter pg-timetable pgbackrest-exporter pgbot pggo pgschema pgterm pig
+      pushgateway redis-exporter
+      sabiql silo silo-console sow sql-studio stalwart tigerbeetle victoria-traces zfs-exporter
     ]
     assert_equal expected.sort, configs.keys.sort
   end
@@ -75,7 +76,49 @@ class UpdateFormulaeTest
   def test_only_timestamp_formulae_need_explicit_versions
     explicit = configs.values.select(&:explicit_version).map(&:name).sort
 
-    assert_equal %w[mcli silo], explicit
+    assert_equal %w[kes mcli silo], explicit
+  end
+
+  def test_universal_release_updates_both_macos_branches_and_requires_linux_assets
+    config = configs.fetch("tigerbeetle")
+    tag = "0.99.0"
+    names = %w[tigerbeetle-universal-macos.zip tigerbeetle-aarch64-linux.zip tigerbeetle-x86_64-linux.zip]
+    assets = names.each_with_index.map do |name, index|
+      {
+        "name"                 => name,
+        "browser_download_url" => "https://github.com/tigerbeetle/tigerbeetle/releases/download/#{tag}/#{name}",
+        "digest"               => "sha256:#{(index + 1).to_s * 64}",
+      }
+    end
+    release = { "tag_name" => tag, "assets" => assets }
+    client = PgstyInfra::GitHubClient.new(token: "test")
+    client.define_singleton_method(:latest_release) { |_config| release }
+    source = File.read(File.expand_path("../Formula/tigerbeetle.rb", __dir__))
+
+    Dir.mktmpdir do |root|
+      Dir.mkdir(File.join(root, "Formula"))
+      path = File.join(root, "Formula", "tigerbeetle.rb")
+      File.write(path, source)
+      updater = PgstyInfra::FormulaUpdater.new(root:, client:)
+      rendered_path, content, rendered_tag = updater.render(config)
+
+      assert_equal path, rendered_path
+      assert_equal tag, rendered_tag
+      assert_equal 2, content.scan(assets[0].fetch("browser_download_url")).length
+      assert_equal 2, content.scan("sha256 \"#{"1" * 64}\"").length
+      assets.drop(1).each do |asset|
+        assert_equal 1, content.scan(asset.fetch("browser_download_url")).length
+      end
+
+      assets.delete_at(1)
+      begin
+        updater.render(config)
+        raise "Expected missing Linux arm64 asset to reject the update"
+      rescue PgstyInfra::Error => e
+        assert e.message.include?("tigerbeetle-aarch64-linux.zip")
+      end
+      assert_equal source, File.read(path)
+    end
   end
 
   def test_each_formula_has_one_marker_per_platform

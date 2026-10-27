@@ -111,6 +111,16 @@ module PgstyInfra
           end,
         ),
         FormulaConfig.new(
+          name:             "kes",
+          repo:             "pgsty/kes",
+          tag_pattern:      TIMESTAMP_TAG,
+          allow_prerelease: false,
+          nounzip:          false,
+          explicit_version: true,
+          version_proc:     method(:timestamp_version),
+          asset_proc:       timestamp_asset("kes"),
+        ),
+        FormulaConfig.new(
           name:             "pig",
           repo:             "pgsty/pig",
           tag_pattern:      SEMVER_TAG,
@@ -318,6 +328,36 @@ module PgstyInfra
           end,
         ),
         FormulaConfig.new(
+          name:             "pgbot",
+          repo:             "pgrundev/pgbot",
+          tag_pattern:      SEMVER_TAG,
+          allow_prerelease: false,
+          nounzip:          false,
+          explicit_version: false,
+          version_proc:     method(:semver_version),
+          asset_proc:       semver_asset("pgbot"),
+        ),
+        FormulaConfig.new(
+          name:             "pggo",
+          repo:             "pgrundev/pggo",
+          tag_pattern:      SEMVER_TAG,
+          allow_prerelease: false,
+          nounzip:          false,
+          explicit_version: false,
+          version_proc:     method(:semver_version),
+          asset_proc:       semver_asset("pggo"),
+        ),
+        FormulaConfig.new(
+          name:             "pgterm",
+          repo:             "pgrundev/pgterm",
+          tag_pattern:      SEMVER_TAG,
+          allow_prerelease: false,
+          nounzip:          false,
+          explicit_version: false,
+          version_proc:     method(:semver_version),
+          asset_proc:       semver_asset("pgterm"),
+        ),
+        FormulaConfig.new(
           name:             "redis-exporter",
           repo:             "oliver006/redis_exporter",
           tag_pattern:      SEMVER_TAG,
@@ -369,6 +409,23 @@ module PgstyInfra
             os = (platform.os == "darwin") ? "apple-darwin" : "unknown-linux-gnu"
             arch = (platform.arch == "amd64") ? "x86_64" : "aarch64"
             "stalwart-#{arch}-#{os}.tar.gz"
+          end,
+        ),
+        FormulaConfig.new(
+          name:             "tigerbeetle",
+          repo:             "tigerbeetle/tigerbeetle",
+          tag_pattern:      PLAIN_SEMVER_TAG,
+          allow_prerelease: false,
+          nounzip:          false,
+          explicit_version: false,
+          version_proc:     method(:plain_version),
+          asset_proc:       lambda do |_tag, platform|
+            if platform.os == "darwin"
+              "tigerbeetle-universal-macos.zip"
+            else
+              arch = (platform.arch == "amd64") ? "x86_64" : "aarch64"
+              "tigerbeetle-#{arch}-linux.zip"
+            end
           end,
         ),
         FormulaConfig.new(

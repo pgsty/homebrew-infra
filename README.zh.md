@@ -14,8 +14,8 @@ Intel macOS、arm64 Linux 与 x86_64 Linux 的上游原生制成品和 SHA-256�
 ```bash
 brew tap pgsty/infra
 
+brew install pgsty/infra/silo pgsty/infra/silo-console pgsty/infra/kes pgsty/infra/mcli
 brew install pgsty/infra/pig
-brew install pgsty/infra/silo
 brew install pgsty/infra/alertmanager
 brew install pgsty/infra/pgschema
 ```
@@ -30,13 +30,16 @@ PGSTY PostgreSQL CLI，而 Core 中的 `pig` 是 Apache Pig。
 
 | Formula | 安装命令 | 用途 | 发布来源 |
 |:--|:--|:--|:--|
-| `barn` | `barn` | Pigsty 开发虚拟机的原生 QEMU 运行时；使用 `barn up` 启动、`barn ssh` 连接 | [`pgsty/barn`](https://github.com/pgsty/barn/releases) |
-| `mcli` | `mcli` | Silo/S3 命令行客户端 | [`pgsty/mc`](https://github.com/pgsty/mc/releases) |
-| `pg-exporter` | `pg_exporter` | PostgreSQL/PgBouncer Prometheus 监控导出器 | [`pgsty/pg_exporter`](https://github.com/pgsty/pg_exporter/releases) |
-| `pig` | `pig` | PostgreSQL 扩展包管理与运维 CLI | [`pgsty/pig`](https://github.com/pgsty/pig/releases) |
 | `silo` | `silo` | S3 兼容对象存储服务 | [`pgsty/silo`](https://github.com/pgsty/silo/releases) |
 | `silo-console` | `silo-console` | 对象存储管理控制台 | [`pgsty/silo-console`](https://github.com/pgsty/silo-console/releases) |
+| `kes` | `kes` | Silo 密钥加密服务 | [`pgsty/kes`](https://github.com/pgsty/kes/releases) |
+| `mcli` | `mcli` | Silo/S3 命令行客户端 | [`pgsty/mc`](https://github.com/pgsty/mc/releases) |
+| `pig` | `pig` | PostgreSQL 扩展包管理与运维 CLI | [`pgsty/pig`](https://github.com/pgsty/pig/releases) |
+| `barn` | `barn` | Pigsty 开发虚拟机的原生 QEMU 运行时；使用 `barn up` 启动、`barn ssh` 连接 | [`pgsty/barn`](https://github.com/pgsty/barn/releases) |
 | `sow` | `sow` | 本地 RPM/DEB 软件仓库管理器 | [`pgsty/sow`](https://github.com/pgsty/sow/releases) |
+| `pg-exporter` | `pg_exporter` | PostgreSQL/PgBouncer Prometheus 监控导出器 | [`pgsty/pg_exporter`](https://github.com/pgsty/pg_exporter/releases) |
+
+`pgsty/mc` 客户端的配方名和安装后的命令名均为 `mcli`。
 
 安装 Barn 预编译发行版：
 
@@ -66,14 +69,18 @@ Core 以同一项目覆盖。
 | `mtail` | `mtail` | 从应用日志中提取指标 |
 | `mysqld-exporter` | `mysqld_exporter` | MySQL Prometheus 指标导出器 |
 | `nginx-exporter` | `nginx_exporter` | NGINX Prometheus 指标导出器 |
-| `pgbackrest-exporter` | `pgbackrest_exporter` | pgBackRest Prometheus 指标导出器 |
-| `pgschema` | `pgschema` | PostgreSQL 声明式 Schema 迁移工具 |
 | `pg-timetable` | `pg_timetable` | PostgreSQL 作业调度器 |
+| `pgbackrest-exporter` | `pgbackrest_exporter` | pgBackRest Prometheus 指标导出器 |
+| `pgbot` | `pgbot` | PostgreSQL 诊断与基线对比 |
+| `pggo` | `pggo` | 面向脚本和代理、输出 JSON 的 PostgreSQL CLI |
+| `pgschema` | `pgschema` | PostgreSQL 声明式 Schema 迁移工具 |
+| `pgterm` | `pgterm` | PostgreSQL 终端工作台；自动安装 `pgbot` 依赖 |
 | `pushgateway` | `pushgateway` | 短生命周期任务的 Prometheus 网关 |
 | `redis-exporter` | `redis_exporter` | Redis Prometheus 指标导出器 |
 | `sabiql` | `sabiql` | PostgreSQL 终端客户端 |
 | `sql-studio` | `sql-studio` | 多数据库终端 SQL 浏览器 |
 | `stalwart` | `stalwart` | 邮件与协作服务器 |
+| `tigerbeetle` | `tigerbeetle` | 金融交易数据库 |
 | `victoria-traces` | `victoria-traces` | OpenTelemetry 链路追踪后端 |
 | `zfs-exporter` | `zfs_exporter` | ZFS Prometheus 指标导出器 |
 

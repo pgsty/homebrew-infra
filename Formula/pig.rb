@@ -14,26 +14,26 @@ class Pig < Formula
   on_macos do
     on_arm do
       # update: darwin_arm64
-      url "https://github.com/pgsty/pig/releases/download/v1.8.1/pig-v1.8.1.darwin-arm64.tar.gz"
-      sha256 "0fb6c86cc18a29aeb74e9d12e717c104087c6ecf5a43250dfcc71cd7681fb868"
+      url "https://github.com/pgsty/pig/releases/download/v1.10.2/pig-v1.10.2.darwin-arm64.tar.gz"
+      sha256 "60df049a38e109bccb3089d74fa41e0d22606ce4df0e4fadae39530d546ca731"
     end
     on_intel do
       # update: darwin_amd64
-      url "https://github.com/pgsty/pig/releases/download/v1.8.1/pig-v1.8.1.darwin-amd64.tar.gz"
-      sha256 "6c08b6a698191b8b6494a0f60880fb17cafa535bad12d5c544333e4625048455"
+      url "https://github.com/pgsty/pig/releases/download/v1.10.2/pig-v1.10.2.darwin-amd64.tar.gz"
+      sha256 "a54be0a4ceadf1e047b74fdb187ff57e9f97b81907c8d66795e7787de88ad864"
     end
   end
 
   on_linux do
     on_arm do
       # update: linux_arm64
-      url "https://github.com/pgsty/pig/releases/download/v1.8.1/pig-v1.8.1.linux-arm64.tar.gz"
-      sha256 "b30924880f21126ece3afc77ca75794a0ceb77964cdfd8bc20da72d9d3273078"
+      url "https://github.com/pgsty/pig/releases/download/v1.10.2/pig-v1.10.2.linux-arm64.tar.gz"
+      sha256 "e1e84d5afcddc8e474d130de638bc400bb965f887bdc9face842f111fb94afeb"
     end
     on_intel do
       # update: linux_amd64
-      url "https://github.com/pgsty/pig/releases/download/v1.8.1/pig-v1.8.1.linux-amd64.tar.gz"
-      sha256 "9219e87433ebd239e0773ae7417fdd08e97bb511312e6747542bf46b6b1bbf2b"
+      url "https://github.com/pgsty/pig/releases/download/v1.10.2/pig-v1.10.2.linux-amd64.tar.gz"
+      sha256 "686c5d6cf682a5a5a1d70cc09a86fecc441b22456f79bb84f192c4730ac2bd8a"
     end
   end
 

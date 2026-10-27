@@ -15,8 +15,8 @@ can be added with its short name:
 ```bash
 brew tap pgsty/infra
 
+brew install pgsty/infra/silo pgsty/infra/silo-console pgsty/infra/kes pgsty/infra/mcli
 brew install pgsty/infra/pig
-brew install pgsty/infra/silo
 brew install pgsty/infra/alertmanager
 brew install pgsty/infra/pgschema
 ```
@@ -33,13 +33,17 @@ canonical tap name.
 
 | Formula | Installed command | Purpose | Release source |
 |:--|:--|:--|:--|
-| `barn` | `barn` | Native QEMU runtime for Pigsty development VMs; start with `barn up`, connect with `barn ssh` | [`pgsty/barn`](https://github.com/pgsty/barn/releases) |
-| `mcli` | `mcli` | Silo/S3 command-line client | [`pgsty/mc`](https://github.com/pgsty/mc/releases) |
-| `pg-exporter` | `pg_exporter` | PostgreSQL/PgBouncer Prometheus exporter | [`pgsty/pg_exporter`](https://github.com/pgsty/pg_exporter/releases) |
-| `pig` | `pig` | PostgreSQL extension package manager and CLI | [`pgsty/pig`](https://github.com/pgsty/pig/releases) |
 | `silo` | `silo` | S3-compatible object storage server | [`pgsty/silo`](https://github.com/pgsty/silo/releases) |
 | `silo-console` | `silo-console` | Administrative web console | [`pgsty/silo-console`](https://github.com/pgsty/silo-console/releases) |
+| `kes` | `kes` | Key encryption service for Silo | [`pgsty/kes`](https://github.com/pgsty/kes/releases) |
+| `mcli` | `mcli` | Silo/S3 command-line client | [`pgsty/mc`](https://github.com/pgsty/mc/releases) |
+| `pig` | `pig` | PostgreSQL extension package manager and CLI | [`pgsty/pig`](https://github.com/pgsty/pig/releases) |
+| `barn` | `barn` | Native QEMU runtime for Pigsty development VMs; start with `barn up`, connect with `barn ssh` | [`pgsty/barn`](https://github.com/pgsty/barn/releases) |
 | `sow` | `sow` | Local RPM/DEB repository manager | [`pgsty/sow`](https://github.com/pgsty/sow/releases) |
+| `pg-exporter` | `pg_exporter` | PostgreSQL/PgBouncer Prometheus exporter | [`pgsty/pg_exporter`](https://github.com/pgsty/pg_exporter/releases) |
+
+The `pgsty/mc` client is packaged as `mcli`; both the formula and installed
+command use that name.
 
 Install Barn's prebuilt release:
 
@@ -70,14 +74,18 @@ not already covered by Homebrew Core for the same project.
 | `mtail` | `mtail` | Extract metrics from application logs |
 | `mysqld-exporter` | `mysqld_exporter` | MySQL Prometheus metrics exporter |
 | `nginx-exporter` | `nginx_exporter` | NGINX Prometheus metrics exporter |
-| `pgbackrest-exporter` | `pgbackrest_exporter` | pgBackRest Prometheus metrics exporter |
-| `pgschema` | `pgschema` | Declarative PostgreSQL schema migration |
 | `pg-timetable` | `pg_timetable` | PostgreSQL job scheduler |
+| `pgbackrest-exporter` | `pgbackrest_exporter` | pgBackRest Prometheus metrics exporter |
+| `pgbot` | `pgbot` | PostgreSQL diagnostics and baseline comparisons |
+| `pggo` | `pggo` | PostgreSQL CLI with JSON output for scripts and agents |
+| `pgschema` | `pgschema` | Declarative PostgreSQL schema migration |
+| `pgterm` | `pgterm` | PostgreSQL terminal workspace; includes the `pgbot` dependency |
 | `pushgateway` | `pushgateway` | Prometheus gateway for short-lived jobs |
 | `redis-exporter` | `redis_exporter` | Redis Prometheus metrics exporter |
 | `sabiql` | `sabiql` | Terminal PostgreSQL client |
 | `sql-studio` | `sql-studio` | Multi-database terminal SQL explorer |
 | `stalwart` | `stalwart` | Mail and collaboration server |
+| `tigerbeetle` | `tigerbeetle` | Financial transactions database |
 | `victoria-traces` | `victoria-traces` | OpenTelemetry tracing backend |
 | `zfs-exporter` | `zfs_exporter` | ZFS Prometheus metrics exporter |
 

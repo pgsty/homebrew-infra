@@ -12,28 +12,30 @@ class SiloConsole < Formula
   end
 
   on_macos do
+    depends_on macos: :ventura
+
     on_arm do
       # update: darwin_arm64
-      url "https://github.com/pgsty/silo-console/releases/download/v2.4.1/silo-console-darwin-arm64", using: :nounzip
-      sha256 "80b9116faf64c7cb5c6f8f4759903ccb613ae49d1855070f1101f688cbf85eee"
+      url "https://github.com/pgsty/silo-console/releases/download/v2.5.1/silo-console-darwin-arm64", using: :nounzip
+      sha256 "51b0fc0c4d47631893e516b304f7088bbae484c4dcd9702f6ef5ae947a5de2eb"
     end
     on_intel do
       # update: darwin_amd64
-      url "https://github.com/pgsty/silo-console/releases/download/v2.4.1/silo-console-darwin-amd64", using: :nounzip
-      sha256 "9301ac46d848adc22812496aac71fd8a84d4c70eb6404939cd8e78211c76b3b0"
+      url "https://github.com/pgsty/silo-console/releases/download/v2.5.1/silo-console-darwin-amd64", using: :nounzip
+      sha256 "bca5c478760c72c28618e5619126bd78c14cc65fedbaec8a480e18b0afa5f001"
     end
   end
 
   on_linux do
     on_arm do
       # update: linux_arm64
-      url "https://github.com/pgsty/silo-console/releases/download/v2.4.1/silo-console-linux-arm64", using: :nounzip
-      sha256 "b5028057511cf5104ce2e161bf2faf80b3401b9d081e57e787b1c47ce5f701bc"
+      url "https://github.com/pgsty/silo-console/releases/download/v2.5.1/silo-console-linux-arm64", using: :nounzip
+      sha256 "a3de5431afbda577959a775124cf6a9aa7f845721f385fc9077104f0472791d3"
     end
     on_intel do
       # update: linux_amd64
-      url "https://github.com/pgsty/silo-console/releases/download/v2.4.1/silo-console-linux-amd64", using: :nounzip
-      sha256 "c5269d88a56d4af7c75d1c861e3acfa4ad72cac805f7e9c3d6ecd934f09accb1"
+      url "https://github.com/pgsty/silo-console/releases/download/v2.5.1/silo-console-linux-amd64", using: :nounzip
+      sha256 "b7bf4c8ae0bfbbad74af981cbecefab7af970c790fd4a2efbe524cc0383fa0aa"
     end
   end
 
@@ -41,6 +43,7 @@ class SiloConsole < Formula
     platform = OS.mac? ? "darwin" : "linux"
     arch = Hardware::CPU.arm? ? "arm64" : "amd64"
     bin.install "silo-console-#{platform}-#{arch}" => "silo-console"
+    chmod 0755, bin/"silo-console"
   end
 
   def caveats
