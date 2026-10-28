@@ -7,6 +7,8 @@ class Agentsview < Formula
   license "MIT"
 
   on_macos do
+    depends_on macos: :tahoe
+
     on_arm do
       # update: darwin_arm64
       url "https://github.com/kenn-io/agentsview/releases/download/v0.46.1/agentsview_0.46.1_darwin_arm64.tar.gz"

@@ -47,7 +47,8 @@ SHA-256. Verify that both CPU architectures are present and retain separate
 Linux mappings; the updater must still reject a release missing either one.
 
 Use the `Homebrew CI` workflow's `smoke` dispatch to install and test the
-complete Formula set on both GitHub-hosted macOS and Linux runners.
+complete Formula set on GitHub-hosted Apple Silicon and Intel macOS runners,
+plus Linux.
 
 Homebrew CI validates the pinned formulae and their installation behavior.
 Release freshness is checked by the scheduled updater and `scripts/check.sh`,

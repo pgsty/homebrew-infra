@@ -25,6 +25,9 @@ Use fully qualified names for formulas that collide with Homebrew Core. In
 particular, `pgsty/infra/pig` is the PGSTY PostgreSQL CLI, while Core's `pig` is
 Apache Pig.
 
+The `agentsview` release binaries require macOS 26 (Tahoe) or later on both
+Apple Silicon and Intel Macs.
+
 Existing `pgsty/tap` installations keep working through GitHub's repository
 redirect. New installations and documentation use `pgsty/infra` as the
 canonical tap name.
@@ -120,7 +123,8 @@ Set production credentials before starting Silo. Run
   opens a reviewable pull request only when versions change.
 - Homebrew CI explicitly runs `style`, cross-platform `readall`, and `audit`
   against `pgsty/infra` on every push. Pull requests and automated update
-  branches also run a complete macOS and Linux install/test smoke matrix.
+  branches also install and test every formula on Apple Silicon and Intel
+  macOS, plus Linux.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for the maintenance workflow and
 [SECURITY.md](SECURITY.md) for reporting integrity or security issues.

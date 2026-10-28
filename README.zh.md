@@ -23,6 +23,9 @@ brew install pgsty/infra/pgschema
 与 Homebrew Core 重名的软件应始终使用全名。尤其是 `pgsty/infra/pig` 代表
 PGSTY PostgreSQL CLI，而 Core 中的 `pig` 是 Apache Pig。
 
+`agentsview` 的发行版二进制在 Apple Silicon 和 Intel Mac 上均要求
+macOS 26（Tahoe）或更新版本。
+
 已有的 `pgsty/tap` 安装会通过 GitHub 仓库重定向继续工作；新安装和文档统一
 使用 `pgsty/infra` 作为规范名称。
 
@@ -113,7 +116,7 @@ brew services stop pgsty/infra/silo
 - 定时任务以原子方式同时更新四个平台的 URL 与摘要，仅在版本变化时创建 PR。
 - Homebrew CI 在每次推送时对 `pgsty/infra` 显式执行 `style`、跨平台
   `readall` 与 `audit`；PR 和自动更新分支还会执行覆盖全部 Formula 的
-  macOS/Linux 安装测试。
+  Apple Silicon macOS、Intel macOS 与 Linux 安装测试。
 
 维护流程见 [CONTRIBUTING.md](CONTRIBUTING.md)，供应链或安全问题见
 [SECURITY.md](SECURITY.md)。

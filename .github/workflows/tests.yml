@@ -23,7 +23,7 @@ jobs:
   test:
     strategy:
       matrix:
-        os: [macos-26]
+        os: [macos-26, macos-26-intel]
         include:
           - os: ubuntu-latest
             container:
