@@ -26,7 +26,7 @@ class UpdateFormulaeTest
 
   def test_catalog_contains_the_release_formula_set
     expected = %w[
-      agentsview alertmanager blackbox-exporter headscale kafka-exporter kes loki-canary mcli mongodb-exporter
+      agentsview alertmanager barn blackbox-exporter headscale kafka-exporter kes loki-canary mcli mongodb-exporter
       mtail mysqld-exporter nginx-exporter pg-exporter pg-timetable pgbackrest-exporter pgbot pggo pgschema pgterm pig
       pushgateway redis-exporter
       sabiql silo silo-console sow sql-studio stalwart tigerbeetle victoria-traces zfs-exporter
@@ -51,11 +51,69 @@ class UpdateFormulaeTest
     assert_equal "pig-v1.8.0.linux-amd64.tar.gz", pig.asset_name(tag, platform("linux_amd64"))
   end
 
-  def test_manually_published_formula_is_outside_the_release_catalog
+  def test_barn_release_mapping_accepts_prereleases
+    barn = configs.fetch("barn")
+
+    assert barn.allow_prerelease
+    assert_equal "0.9.2-next", barn.version_for("v0.9.2-next")
+    assert_equal "barn_0.9.2-next_darwin_arm64.tar.gz",
+                 barn.asset_name("v0.9.2-next", platform("darwin_arm64"))
+  end
+
+  def test_release_selector_skips_an_assetless_release
+    config = configs.fetch("pgbackrest-exporter")
+    complete_assets = PgstyInfra::PLATFORMS.map do |candidate|
+      asset_name = config.asset_name("v0.24.0", candidate)
+      {
+        "name"                 => asset_name,
+        "browser_download_url" => "https://github.com/#{config.repo}/releases/download/v0.24.0/#{asset_name}",
+      }
+    end
+    client = PgstyInfra::GitHubClient.new(token: "test")
+    client.define_singleton_method(:get_json) do |_uri|
+      [
+        {
+          "tag_name"   => "v0.25.0",
+          "draft"      => false,
+          "prerelease" => false,
+          "assets"     => [],
+        },
+        {
+          "tag_name"   => "v0.24.0",
+          "draft"      => false,
+          "prerelease" => false,
+          "assets"     => complete_assets,
+        },
+      ]
+    end
+
+    assert_equal "v0.24.0", client.latest_release(config).fetch("tag_name")
+
+    client.define_singleton_method(:get_json) do |_uri|
+      [
+        { "tag_name" => "v0.25.0", "assets" => complete_assets.first(1) },
+        { "tag_name" => "v0.24.0", "assets" => complete_assets },
+      ]
+    end
+    # A partial upload must reach the strict platform checks, not fall back.
+    assert_equal "v0.25.0", client.latest_release(config).fetch("tag_name")
+
+    client.define_singleton_method(:get_json) do |_uri|
+      [{ "tag_name" => "v0.25.0", "assets" => [] }]
+    end
+    begin
+      client.latest_release(config)
+      raise "Expected a repository with only empty Releases to reject the update"
+    rescue PgstyInfra::Error => e
+      assert e.message.include?("no eligible release found")
+    end
+  end
+
+  def test_formula_files_match_the_release_catalog
     root = File.expand_path("..", __dir__)
     formulae = Dir[File.join(root, "Formula", "*.rb")].map { |path| File.basename(path, ".rb") }
 
-    assert_equal ["barn"], formulae.sort - configs.keys.sort
+    assert_equal [], formulae.sort - configs.keys.sort
     assert_equal [], configs.keys - formulae
   end
 
@@ -67,16 +125,61 @@ class UpdateFormulaeTest
                  console.asset_name("v2.2.1", platform("darwin_amd64"))
   end
 
-  def test_release_catalog_excludes_prereleases
+  def test_only_barn_accepts_prereleases
     accepting = configs.values.select(&:allow_prerelease).map(&:name)
 
-    assert_equal [], accepting
+    assert_equal ["barn"], accepting
   end
 
-  def test_only_timestamp_formulae_need_explicit_versions
+  def test_only_timestamp_formulae_always_need_explicit_versions
     explicit = configs.values.select(&:explicit_version).map(&:name).sort
 
     assert_equal %w[kes mcli silo], explicit
+  end
+
+  def test_barn_prerelease_renders_an_explicit_version
+    config = configs.fetch("barn")
+    tag = "v0.9.2-next"
+    assets = PgstyInfra::PLATFORMS.map do |platform|
+      name = config.asset_name(tag, platform)
+      {
+        "name"                 => name,
+        "browser_download_url" => "https://github.com/#{config.repo}/releases/download/#{tag}/#{name}",
+        "digest"               => "sha256:#{"a" * 64}",
+      }
+    end
+    client = PgstyInfra::GitHubClient.new(token: "test")
+    client.define_singleton_method(:latest_release) { |_config| { "tag_name" => tag, "assets" => assets } }
+    source = File.read(File.expand_path("../Formula/barn.rb", __dir__))
+
+    Dir.mktmpdir do |root|
+      Dir.mkdir(File.join(root, "Formula"))
+      path = File.join(root, "Formula", "barn.rb")
+      File.write(path, source)
+      updater = PgstyInfra::FormulaUpdater.new(root:, client:)
+      _, content, rendered_tag = updater.render(config)
+
+      assert_equal tag, rendered_tag
+      # Homebrew otherwise infers "64" from prerelease archive filenames.
+      assert_equal ["0.9.2-next"], content.scan(/^  version "([^"]+)"$/).flatten
+      assets.each do |asset|
+        assert_equal 1, content.scan(asset.fetch("browser_download_url")).length
+      end
+      assert_equal source, File.read(path)
+
+      File.write(path, content)
+      tag = "v0.9.2"
+      assets = assets.map do |asset|
+        asset.transform_values { |value| value.gsub("0.9.2-next", "0.9.2") }
+      end
+      _, stable_content, stable_tag = updater.render(config)
+      assert_equal tag, stable_tag
+      assert_equal [], stable_content.scan(/^  version "([^"]+)"$/)
+      assets.each do |asset|
+        assert_equal 1, stable_content.scan(asset.fetch("browser_download_url")).length
+      end
+      assert_equal content, File.read(path)
+    end
   end
 
   def test_universal_release_updates_both_macos_branches_and_requires_linux_assets

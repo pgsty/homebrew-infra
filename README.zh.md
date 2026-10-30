@@ -50,9 +50,13 @@ macOS 26（Tahoe）或更新版本。
 brew install pgsty/infra/barn
 ```
 
-Homebrew 安装 Barn CLI、配套 hosts helper 与 QEMU，不需要 Go。Barn 的 0.x
-发行版带有 GitHub prerelease 标记，因此生成的配方随每次 Barn 发布更新，
-不由只跟踪稳定发行版的自动更新器维护。
+Homebrew 安装 Barn CLI、配套 hosts helper 与 QEMU，不需要 Go。Barn 0.9.2
+在 Apple Silicon 上附带已签名、公证的原生 `Barn.app`，安装到版本私有的
+`libexec` 目录，`barn mac` 自动发现匹配的 runner。macOS 客户机要求
+Apple Silicon 与 macOS 27 或更新版本；Linux 客户机使用 QEMU。
+
+Barn 的 0.x 发行版带有 GitHub prerelease 标记。自动更新器已明确允许这些版本，
+新 Barn 发布后会自动刷新四个平台的资产和校验值。
 
 ## 额外基础设施软件
 
@@ -112,7 +116,10 @@ brew services stop pgsty/infra/silo
 ## 发布完整性与自动更新
 
 - 版本配方分别固定四种 OS/CPU 组合的 Release 资产与 SHA-256。
-- 发布自动更新器忽略 Draft 和 prerelease；Barn 的 0.x 配方随每次 Barn 发布更新。
+- 发布自动更新器忽略 Draft，通常忽略 prerelease；Barn 的 0.x 配方明确允许
+  自身的 prerelease 发行版。
+- 没有任何二进制附件的源码型 GitHub Release 会发出警告并跳过；有部分二进制
+  但缺少某个平台的 Release 仍会阻止该配方更新，不会伪造下载地址。
 - 定时任务以原子方式同时更新四个平台的 URL 与摘要，仅在版本变化时创建 PR。
 - Homebrew CI 在每次推送时对 `pgsty/infra` 显式执行 `style`、跨平台
   `readall` 与 `audit`；PR 和自动更新分支还会执行覆盖全部 Formula 的

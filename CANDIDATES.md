@@ -15,9 +15,14 @@ A new Formula is admitted when all of these are true:
 5. The binary can be installed and tested without an undisclosed kernel,
    privileged host, or proprietary runtime dependency.
 
-The updater fails the whole Formula update when any one of the four platform
-assets is missing. A source archive that could theoretically be cross-compiled
-is not equivalent to a published native binary.
+The updater skips Releases with no binary assets, then fails the whole Formula
+update if the selected Release is missing any of the four platform assets.
+A source archive that could theoretically be cross-compiled is not equivalent
+to a published native binary.
+
+On 2026-10-30, `pgbackrest-exporter` remains at v0.24.0: upstream v0.25.0 has no
+release attachments. The updater reports the skipped Release and will pick it
+up once the complete native binary matrix is available.
 
 A universal macOS archive may serve both Darwin architectures. TigerBeetle's
 archive was checked for native arm64 and x86_64 executables; both formula

@@ -55,9 +55,14 @@ brew install pgsty/infra/barn
 ```
 
 Homebrew installs the Barn CLI, its matching hosts helper, and QEMU. Go is not
-required. Barn's 0.x releases are published with GitHub's prerelease flag, so
-its generated formula is updated as part of each Barn release rather than by
-the stable-release updater.
+required. Barn 0.9.2 includes the signed, notarized native `Barn.app` on Apple
+Silicon. Homebrew installs it into the formula's private `libexec` directory,
+so `barn mac` discovers the matching runner automatically. macOS guests
+require Apple Silicon and macOS 27 or later; Linux guests use QEMU.
+
+Barn's 0.x releases are published with GitHub's prerelease flag. The scheduled
+updater explicitly accepts those releases and refreshes all four platform
+assets and checksums when a new Barn release is published.
 
 ## Additional infrastructure software
 
@@ -118,7 +123,10 @@ Set production credentials before starting Silo. Run
 ## Release integrity and updates
 
 - Release formulae pin one GitHub Release asset and SHA-256 for each supported OS/CPU pair.
-- The release updater ignores drafts and prereleases; Barn's 0.x formula is updated with each Barn release.
+- The release updater ignores drafts and normally ignores prereleases; Barn's
+  0.x formula explicitly accepts its prerelease releases.
+- A source-only GitHub Release with no binary assets is skipped with a warning;
+  a partially populated binary Release still blocks that Formula update.
 - A scheduled updater changes all four platform URLs and hashes atomically and
   opens a reviewable pull request only when versions change.
 - Homebrew CI explicitly runs `style`, cross-platform `readall`, and `audit`

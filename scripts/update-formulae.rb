@@ -168,6 +168,18 @@ module PgstyInfra
           end,
         ),
         FormulaConfig.new(
+          name:             "barn",
+          repo:             "pgsty/barn",
+          tag_pattern:      SEMVER_TAG,
+          allow_prerelease: true,
+          nounzip:          false,
+          explicit_version: false,
+          version_proc:     method(:semver_version),
+          asset_proc:       lambda do |tag, platform|
+            "barn_#{semver_version(tag)}_#{platform.os}_#{platform.arch}.tar.gz"
+          end,
+        ),
+        FormulaConfig.new(
           name:             "alertmanager",
           repo:             "prometheus/alertmanager",
           tag_pattern:      SEMVER_TAG,
@@ -475,7 +487,15 @@ module PgstyInfra
         next false if candidate["prerelease"] && !config.allow_prerelease
 
         tag = candidate["tag_name"].to_s
-        config.tag_pattern.match?(tag)
+        next false unless config.tag_pattern.match?(tag)
+
+        assets = candidate["assets"]
+        if assets.is_a?(Array) && assets.empty?
+          warn "skipping #{config.repo} #{tag}: release has no binary assets"
+          next false
+        end
+
+        true
       end
       raise Error, "no eligible release found for #{config.repo}" unless release
 
@@ -583,12 +603,19 @@ module PgstyInfra
       source = File.read(path)
       lines = source.lines
       version_indexes = lines.each_index.select { |index| VERSION_LINE.match?(lines[index].chomp) }
-      if config.explicit_version
-        if version_indexes.length != 1
+      if config.explicit_version || (config.allow_prerelease && /[-+]/.match?(version))
+        if version_indexes.empty? && config.allow_prerelease
+          homepage_index = lines.index { |line| line.start_with?('  homepage "') }
+          raise Error, "#{path} is missing its homepage line" unless homepage_index
+
+          lines.insert(homepage_index + 1, "  version \"#{version}\"\n")
+        elsif version_indexes.length == 1
+          lines[version_indexes.first] = "  version \"#{version}\"\n"
+        else
           raise Error, "#{path} must contain exactly one two-space-indented version line"
         end
-
-        lines[version_indexes.first] = "  version \"#{version}\"\n"
+      elsif config.allow_prerelease && version_indexes.length == 1
+        lines.delete_at(version_indexes.first)
       elsif !version_indexes.empty?
         raise Error, "#{path} must let Homebrew infer its version from the release URL"
       end
