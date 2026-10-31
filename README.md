@@ -55,7 +55,7 @@ brew install pgsty/infra/barn
 ```
 
 Homebrew installs the Barn CLI, its matching hosts helper, and QEMU. Go is not
-required. Barn 0.9.2 includes the signed, notarized native `Barn.app` on Apple
+required. Barn 0.9.3 includes the signed, notarized native `Barn.app` on Apple
 Silicon. Homebrew installs it into the formula's private `libexec` directory,
 so `barn mac` discovers the matching runner automatically. macOS guests
 require Apple Silicon and macOS 27 or later; Linux guests use QEMU.

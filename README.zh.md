@@ -50,7 +50,7 @@ macOS 26（Tahoe）或更新版本。
 brew install pgsty/infra/barn
 ```
 
-Homebrew 安装 Barn CLI、配套 hosts helper 与 QEMU，不需要 Go。Barn 0.9.2
+Homebrew 安装 Barn CLI、配套 hosts helper 与 QEMU，不需要 Go。Barn 0.9.3
 在 Apple Silicon 上附带已签名、公证的原生 `Barn.app`，安装到版本私有的
 `libexec` 目录，`barn mac` 自动发现匹配的 runner。macOS 客户机要求
 Apple Silicon 与 macOS 27 或更新版本；Linux 客户机使用 QEMU。
