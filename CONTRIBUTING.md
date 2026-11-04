@@ -27,12 +27,10 @@ brew ruby -- scripts/update-formulae.rb --check
 brew ruby -- scripts/update-formulae.rb --formula pig
 ```
 
-Barn's prebuilt formula is part of `PgstyInfra::Catalog`. Its 0.x releases carry
-GitHub's prerelease flag, so the catalog explicitly allows those releases while
-still requiring all four platform assets. The updater adds an explicit
-`version` for tags such as `0.9.2-next`, which Homebrew can misread as `64` from
-the archive's architecture suffix. It removes that line for plain versions
-such as `0.9.2`, where Homebrew requires URL-based version detection. Verify with
+Barn's prebuilt formula is part of `PgstyInfra::Catalog`. From 1.0.0 it follows
+the stable release channel and excludes drafts and prereleases, while still
+requiring all four platform assets. Plain versions such as `1.0.0` use
+Homebrew's URL-based version detection. Verify with
 `brew install pgsty/infra/barn` and `brew test pgsty/infra/barn`.
 
 ## Add a release formula

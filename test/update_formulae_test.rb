@@ -51,13 +51,27 @@ class UpdateFormulaeTest
     assert_equal "pig-v1.8.0.linux-amd64.tar.gz", pig.asset_name(tag, platform("linux_amd64"))
   end
 
-  def test_barn_release_mapping_accepts_prereleases
+  def test_barn_release_mapping_uses_stable_versions
     barn = configs.fetch("barn")
 
-    assert barn.allow_prerelease
-    assert_equal "0.9.2-next", barn.version_for("v0.9.2-next")
-    assert_equal "barn_0.9.2-next_darwin_arm64.tar.gz",
-                 barn.asset_name("v0.9.2-next", platform("darwin_arm64"))
+    assert !barn.allow_prerelease
+    assert_equal "1.0.0", barn.version_for("v1.0.0")
+    assert_equal "barn_1.0.0_darwin_arm64.tar.gz",
+                 barn.asset_name("v1.0.0", platform("darwin_arm64"))
+  end
+
+  def test_barn_release_selector_excludes_future_prereleases_and_drafts
+    config = configs.fetch("barn")
+    client = PgstyInfra::GitHubClient.new(token: "test")
+    client.define_singleton_method(:get_json) do |_uri|
+      [
+        { "tag_name" => "v1.1.0", "draft" => true, "prerelease" => false, "assets" => [{}] },
+        { "tag_name" => "v1.1.0-rc.1", "draft" => false, "prerelease" => true, "assets" => [{}] },
+        { "tag_name" => "v1.0.0", "draft" => false, "prerelease" => false, "assets" => [{}] },
+      ]
+    end
+
+    assert_equal "v1.0.0", client.latest_release(config).fetch("tag_name")
   end
 
   def test_release_selector_skips_an_assetless_release
@@ -125,10 +139,10 @@ class UpdateFormulaeTest
                  console.asset_name("v2.2.1", platform("darwin_amd64"))
   end
 
-  def test_only_barn_accepts_prereleases
+  def test_all_formulae_exclude_prereleases
     accepting = configs.values.select(&:allow_prerelease).map(&:name)
 
-    assert_equal ["barn"], accepting
+    assert_equal [], accepting
   end
 
   def test_only_timestamp_formulae_always_need_explicit_versions
@@ -137,8 +151,9 @@ class UpdateFormulaeTest
     assert_equal %w[kes mcli silo], explicit
   end
 
-  def test_barn_prerelease_renders_an_explicit_version
-    config = configs.fetch("barn")
+  def test_opted_in_prerelease_renders_an_explicit_version
+    config = configs.fetch("barn").dup
+    config.allow_prerelease = true
     tag = "v0.9.2-next"
     assets = PgstyInfra::PLATFORMS.map do |platform|
       name = config.asset_name(tag, platform)

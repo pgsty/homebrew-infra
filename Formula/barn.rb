@@ -13,26 +13,26 @@ class Barn < Formula
   on_macos do
     on_arm do
       # update: darwin_arm64
-      url "https://github.com/pgsty/barn/releases/download/v0.9.3/barn_0.9.3_darwin_arm64.tar.gz"
-      sha256 "e3077219019db626ce028199f474f0ff01427729cab204f1538ac94498646bf1"
+      url "https://github.com/pgsty/barn/releases/download/v1.0.0/barn_1.0.0_darwin_arm64.tar.gz"
+      sha256 "72a82e8b7cca1fdbdbacba4cc34ebe4b0993f2ad9289b8eff0e23b4c519e6959"
     end
     on_intel do
       # update: darwin_amd64
-      url "https://github.com/pgsty/barn/releases/download/v0.9.3/barn_0.9.3_darwin_amd64.tar.gz"
-      sha256 "656c98318059cc8c98d2649691433f51e08ea0df9def8c547691910fb5f47042"
+      url "https://github.com/pgsty/barn/releases/download/v1.0.0/barn_1.0.0_darwin_amd64.tar.gz"
+      sha256 "11655e1a827e6a84a8b5340bfb811603644c54e8a0444bb249fc90070c1420c0"
     end
   end
 
   on_linux do
     on_arm do
       # update: linux_arm64
-      url "https://github.com/pgsty/barn/releases/download/v0.9.3/barn_0.9.3_linux_arm64.tar.gz"
-      sha256 "893df14bf0dd448398f15296df7fd0fed8ee472ec125ba3d7fca63664fb1cc79"
+      url "https://github.com/pgsty/barn/releases/download/v1.0.0/barn_1.0.0_linux_arm64.tar.gz"
+      sha256 "655c265a33d438d46a4a686e33be6d4380765405e10c66454cfd7a835e57a49b"
     end
     on_intel do
       # update: linux_amd64
-      url "https://github.com/pgsty/barn/releases/download/v0.9.3/barn_0.9.3_linux_amd64.tar.gz"
-      sha256 "5e1b3d166ee698cdb8b97d677e34ffc2f86c7cc0ef5391f096658c370b253341"
+      url "https://github.com/pgsty/barn/releases/download/v1.0.0/barn_1.0.0_linux_amd64.tar.gz"
+      sha256 "f97e2dcd911b500fab18584801c8c973bb23fcabbc7c89376d775c918e6dbf96"
     end
   end
 

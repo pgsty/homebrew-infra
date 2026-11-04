@@ -171,7 +171,7 @@ module PgstyInfra
           name:             "barn",
           repo:             "pgsty/barn",
           tag_pattern:      SEMVER_TAG,
-          allow_prerelease: true,
+          allow_prerelease: false,
           nounzip:          false,
           explicit_version: false,
           version_proc:     method(:semver_version),
