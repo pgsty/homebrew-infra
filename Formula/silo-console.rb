@@ -16,26 +16,26 @@ class SiloConsole < Formula
 
     on_arm do
       # update: darwin_arm64
-      url "https://github.com/pgsty/silo-console/releases/download/v2.5.1/silo-console-darwin-arm64", using: :nounzip
-      sha256 "51b0fc0c4d47631893e516b304f7088bbae484c4dcd9702f6ef5ae947a5de2eb"
+      url "https://github.com/pgsty/silo-console/releases/download/v2.6.0/silo-console-darwin-arm64", using: :nounzip
+      sha256 "f6d2375eae9a390035214bb2713e8b9e2a2ae07cf2c9042b2ce24cdcbd1605bd"
     end
     on_intel do
       # update: darwin_amd64
-      url "https://github.com/pgsty/silo-console/releases/download/v2.5.1/silo-console-darwin-amd64", using: :nounzip
-      sha256 "bca5c478760c72c28618e5619126bd78c14cc65fedbaec8a480e18b0afa5f001"
+      url "https://github.com/pgsty/silo-console/releases/download/v2.6.0/silo-console-darwin-amd64", using: :nounzip
+      sha256 "11211bfff688f38a8a615624dd850c71ed9d4eadad65a512b5f7790ea3c65198"
     end
   end
 
   on_linux do
     on_arm do
       # update: linux_arm64
-      url "https://github.com/pgsty/silo-console/releases/download/v2.5.1/silo-console-linux-arm64", using: :nounzip
-      sha256 "a3de5431afbda577959a775124cf6a9aa7f845721f385fc9077104f0472791d3"
+      url "https://github.com/pgsty/silo-console/releases/download/v2.6.0/silo-console-linux-arm64", using: :nounzip
+      sha256 "bfb466cf227cc55056878eb1426437a55cdf328bcec785687be34e064507ff19"
     end
     on_intel do
       # update: linux_amd64
-      url "https://github.com/pgsty/silo-console/releases/download/v2.5.1/silo-console-linux-amd64", using: :nounzip
-      sha256 "b7bf4c8ae0bfbbad74af981cbecefab7af970c790fd4a2efbe524cc0383fa0aa"
+      url "https://github.com/pgsty/silo-console/releases/download/v2.6.0/silo-console-linux-amd64", using: :nounzip
+      sha256 "53bb8395cb62803777e8cff2182592f8c90bbc71e9851cec1511a7d0fd0e92b6"
     end
   end
 

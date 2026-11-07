@@ -9,26 +9,26 @@ class Headscale < Formula
   on_macos do
     on_arm do
       # update: darwin_arm64
-      url "https://github.com/juanfont/headscale/releases/download/v0.29.6/headscale_0.29.6_darwin_arm64", using: :nounzip
-      sha256 "d63767d67aec7521b7dd8602a7c28ce9d36d21de3a8025b37b71c81cbbe14109"
+      url "https://github.com/juanfont/headscale/releases/download/v0.29.7/headscale_0.29.7_darwin_arm64", using: :nounzip
+      sha256 "1c2e772f35a61142a1582fba5e8919adaeace9a9b2abddd039f9872141585df0"
     end
     on_intel do
       # update: darwin_amd64
-      url "https://github.com/juanfont/headscale/releases/download/v0.29.6/headscale_0.29.6_darwin_amd64", using: :nounzip
-      sha256 "9ec1905cf13bc875ed9ba4e3e371edcb0440b267aa4667a2143fc85a544a81c4"
+      url "https://github.com/juanfont/headscale/releases/download/v0.29.7/headscale_0.29.7_darwin_amd64", using: :nounzip
+      sha256 "9e82977644388d4a61d460d6ff7d8207f4894dea9fc02e75c9d8f23576bf360b"
     end
   end
 
   on_linux do
     on_arm do
       # update: linux_arm64
-      url "https://github.com/juanfont/headscale/releases/download/v0.29.6/headscale_0.29.6_linux_arm64", using: :nounzip
-      sha256 "7b3c792ebe10e1a81a0c8d9674aee8eb540e7dbb7ccb80a98b71024da4c72a48"
+      url "https://github.com/juanfont/headscale/releases/download/v0.29.7/headscale_0.29.7_linux_arm64", using: :nounzip
+      sha256 "4357b38ac63c1e425f190819fd2ee078f13e01a6d7559b15811154e2475df5e4"
     end
     on_intel do
       # update: linux_amd64
-      url "https://github.com/juanfont/headscale/releases/download/v0.29.6/headscale_0.29.6_linux_amd64", using: :nounzip
-      sha256 "7477c374949eea6fb7cf3cbff14dbef49e4d118d9a33557d6764a77ece617e53"
+      url "https://github.com/juanfont/headscale/releases/download/v0.29.7/headscale_0.29.7_linux_amd64", using: :nounzip
+      sha256 "e827fc9b12d958bc95b081c4401dd63f8e0471d025b45b508535a920532150a8"
     end
   end
 
