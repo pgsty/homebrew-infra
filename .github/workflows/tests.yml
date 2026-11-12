@@ -38,6 +38,10 @@ jobs:
       - name: Set up Homebrew
         id: set-up-homebrew
         uses: Homebrew/actions/setup-homebrew@a657b8b0cd35d0f65cce41fce9b24cf054b49869 # 2026.08.24.1
+        env:
+          # Refresh metadata without migrating preinstalled runner packages.
+          # Formula loading resumes for the verification and install steps.
+          HOMEBREW_DISABLE_LOAD_FORMULA: "1"
 
       - name: Check out repository
         uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
