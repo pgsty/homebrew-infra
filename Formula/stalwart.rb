@@ -9,26 +9,26 @@ class Stalwart < Formula
   on_macos do
     on_arm do
       # update: darwin_arm64
-      url "https://github.com/stalwartlabs/stalwart/releases/download/v1.0.1/stalwart-aarch64-apple-darwin.tar.gz"
-      sha256 "338cfe81fd83c6724d364609a32b2229ed0cc09c6b1330c278ff1d7964d1f82f"
+      url "https://github.com/stalwartlabs/stalwart/releases/download/v1.1.0/stalwart-aarch64-apple-darwin.tar.gz"
+      sha256 "090758af021014c830661ec17c7b5467db1e911de17956361ee6b27551487325"
     end
     on_intel do
       # update: darwin_amd64
-      url "https://github.com/stalwartlabs/stalwart/releases/download/v1.0.1/stalwart-x86_64-apple-darwin.tar.gz"
-      sha256 "1be63aac81470217b48fda51f0c85ba0409a113bd8c41514189f4a2d2962da84"
+      url "https://github.com/stalwartlabs/stalwart/releases/download/v1.1.0/stalwart-x86_64-apple-darwin.tar.gz"
+      sha256 "1e68836b98c2599cd72dbefd7f501e598f760a533f6bc27127535fd1bcd45840"
     end
   end
 
   on_linux do
     on_arm do
       # update: linux_arm64
-      url "https://github.com/stalwartlabs/stalwart/releases/download/v1.0.1/stalwart-aarch64-unknown-linux-gnu.tar.gz"
-      sha256 "36612d5c4e7c11b23a87b205c9341be08eb49c71515d4720854e1864b7e4c5b5"
+      url "https://github.com/stalwartlabs/stalwart/releases/download/v1.1.0/stalwart-aarch64-unknown-linux-gnu.tar.gz"
+      sha256 "e1ff640f0d3800d72a04916e7b402f19e28e9106ed3ed719a876d238d9f73567"
     end
     on_intel do
       # update: linux_amd64
-      url "https://github.com/stalwartlabs/stalwart/releases/download/v1.0.1/stalwart-x86_64-unknown-linux-gnu.tar.gz"
-      sha256 "aabae69bcdeff31e305d60f3ecb059fdb203116c0077d81560bf6d6f0f757d75"
+      url "https://github.com/stalwartlabs/stalwart/releases/download/v1.1.0/stalwart-x86_64-unknown-linux-gnu.tar.gz"
+      sha256 "62e6fdaf68f6ddfb45aa0dc1c28578a7e05f1e5e9a0c95fccfe1eae709d4ecbc"
     end
   end
 

@@ -9,26 +9,26 @@ class Sabiql < Formula
   on_macos do
     on_arm do
       # update: darwin_arm64
-      url "https://github.com/riii111/sabiql/releases/download/v3.0.2/sabiql-aarch64-apple-darwin.tar.gz"
-      sha256 "3c9ff0e8770fd9257c70643a2606a85581fdce29074376ecb4921c8d7595682f"
+      url "https://github.com/riii111/sabiql/releases/download/v3.0.3/sabiql-aarch64-apple-darwin.tar.gz"
+      sha256 "aca05fee709eef39da2490a858851299065e2bee10d7fff6459e2012c4167106"
     end
     on_intel do
       # update: darwin_amd64
-      url "https://github.com/riii111/sabiql/releases/download/v3.0.2/sabiql-x86_64-apple-darwin.tar.gz"
-      sha256 "8ceb2937aea53faaf7e7b4e6a696c1d5383c149c4dc66dfa2beeefdbac85eae8"
+      url "https://github.com/riii111/sabiql/releases/download/v3.0.3/sabiql-x86_64-apple-darwin.tar.gz"
+      sha256 "7e21a573b79795bb41527a971edfcd05ebe7c64220ea51fe41427e4d0c0b2a48"
     end
   end
 
   on_linux do
     on_arm do
       # update: linux_arm64
-      url "https://github.com/riii111/sabiql/releases/download/v3.0.2/sabiql-aarch64-unknown-linux-gnu.tar.gz"
-      sha256 "a73a1a7f336462f633bea357b7ac237bbbeb52552429b7b6eb86e1165bf8ad29"
+      url "https://github.com/riii111/sabiql/releases/download/v3.0.3/sabiql-aarch64-unknown-linux-gnu.tar.gz"
+      sha256 "975a2a81cb76d7f1a4ecb35de94f7c96cc944c8fcaefa44cb1518f57de1fb407"
     end
     on_intel do
       # update: linux_amd64
-      url "https://github.com/riii111/sabiql/releases/download/v3.0.2/sabiql-x86_64-unknown-linux-gnu.tar.gz"
-      sha256 "1a471cbd634f61f4070b2f7b853cac946bd34da04dd30116ce925ddf84ad2211"
+      url "https://github.com/riii111/sabiql/releases/download/v3.0.3/sabiql-x86_64-unknown-linux-gnu.tar.gz"
+      sha256 "67a693b1587ada0ebf515b9f97b2728125ad0ddcec69f556476eb57842f19442"
     end
   end
 

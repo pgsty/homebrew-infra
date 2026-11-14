@@ -9,26 +9,26 @@ class Alertmanager < Formula
   on_macos do
     on_arm do
       # update: darwin_arm64
-      url "https://github.com/prometheus/alertmanager/releases/download/v0.34.2/alertmanager-0.34.2.darwin-arm64.tar.gz"
-      sha256 "dc1fcd4ad3e8bef111683eaf385aa5b2b02493277bca9126c129e0a39fc68a4f"
+      url "https://github.com/prometheus/alertmanager/releases/download/v0.35.0/alertmanager-0.35.0.darwin-arm64.tar.gz"
+      sha256 "06c0700ebdee77688eddc12e1c71c52e88efbb348f832ecb7a9ff699f9106fba"
     end
     on_intel do
       # update: darwin_amd64
-      url "https://github.com/prometheus/alertmanager/releases/download/v0.34.2/alertmanager-0.34.2.darwin-amd64.tar.gz"
-      sha256 "fa5a50303c58771c261fcbed4cf5f9a852cf2c6064942adbd92c6859c65c5f93"
+      url "https://github.com/prometheus/alertmanager/releases/download/v0.35.0/alertmanager-0.35.0.darwin-amd64.tar.gz"
+      sha256 "7b39d9f48640186e7af4cb92bcc071fecfad54f90b43d8cd7dac92f20f511df9"
     end
   end
 
   on_linux do
     on_arm do
       # update: linux_arm64
-      url "https://github.com/prometheus/alertmanager/releases/download/v0.34.2/alertmanager-0.34.2.linux-arm64.tar.gz"
-      sha256 "5aaad82e3d167c30c06ce7d38677d2892a6f66f4c3613ea17af7481750fdd0b0"
+      url "https://github.com/prometheus/alertmanager/releases/download/v0.35.0/alertmanager-0.35.0.linux-arm64.tar.gz"
+      sha256 "b7a8a69f849c6f837348b05476195862152f9de8eae338eb36ab29801d341654"
     end
     on_intel do
       # update: linux_amd64
-      url "https://github.com/prometheus/alertmanager/releases/download/v0.34.2/alertmanager-0.34.2.linux-amd64.tar.gz"
-      sha256 "17ee14acd0f6ba6e25a436ff223d9c17ddd5cf484f543ad12f0932eaa89ba186"
+      url "https://github.com/prometheus/alertmanager/releases/download/v0.35.0/alertmanager-0.35.0.linux-amd64.tar.gz"
+      sha256 "6c7752a903c40c8a749e0b29df9240437e4fbb8228068d0af8807377db32addd"
     end
   end
 

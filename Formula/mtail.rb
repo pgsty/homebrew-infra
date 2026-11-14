@@ -9,26 +9,26 @@ class Mtail < Formula
   on_macos do
     on_arm do
       # update: darwin_arm64
-      url "https://github.com/jaqx0r/mtail/releases/download/v3.4.18/mtail_3.4.18_darwin_arm64.tar.gz"
-      sha256 "94e13602b06f508e26632bed9518c5a9b5b630b62ef282206557b805777e4cb9"
+      url "https://github.com/jaqx0r/mtail/releases/download/v3.4.20/mtail_3.4.20_darwin_arm64.tar.gz"
+      sha256 "09e22ffc6fb0299f38b6c4a13e1526a85df3f85d2433cec11405a8c084cd1b73"
     end
     on_intel do
       # update: darwin_amd64
-      url "https://github.com/jaqx0r/mtail/releases/download/v3.4.18/mtail_3.4.18_darwin_amd64.tar.gz"
-      sha256 "76816ca15adc0981c8a08a49b9bcbe3e0d54fd8256ea524b2c3df987aaba8522"
+      url "https://github.com/jaqx0r/mtail/releases/download/v3.4.20/mtail_3.4.20_darwin_amd64.tar.gz"
+      sha256 "bae6212c8ed7d7c0869125c7a3a3082a2c04ea51d3fa4524fb72396b2417d7be"
     end
   end
 
   on_linux do
     on_arm do
       # update: linux_arm64
-      url "https://github.com/jaqx0r/mtail/releases/download/v3.4.18/mtail_3.4.18_linux_arm64.tar.gz"
-      sha256 "1ff08a2e45b984ff3b42aa8248778da758bbe434985b8a04e713eb4a3f282137"
+      url "https://github.com/jaqx0r/mtail/releases/download/v3.4.20/mtail_3.4.20_linux_arm64.tar.gz"
+      sha256 "d6c47cc000e921e294dc00453584958b8f2875f75db225a7873778ed42b4bf6a"
     end
     on_intel do
       # update: linux_amd64
-      url "https://github.com/jaqx0r/mtail/releases/download/v3.4.18/mtail_3.4.18_linux_amd64.tar.gz"
-      sha256 "d963e3edad8dc425092f2fbb1e617c1fd70552c8dbba7529d9a16b2244753311"
+      url "https://github.com/jaqx0r/mtail/releases/download/v3.4.20/mtail_3.4.20_linux_amd64.tar.gz"
+      sha256 "771d5ea22c53ec4c1eb9932a27b91fdacc2d0c8a7c7f94d516437e78f7e69dd5"
     end
   end
 

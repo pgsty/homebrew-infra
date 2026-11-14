@@ -11,26 +11,26 @@ class Agentsview < Formula
 
     on_arm do
       # update: darwin_arm64
-      url "https://github.com/kenn-io/agentsview/releases/download/v0.46.1/agentsview_0.46.1_darwin_arm64.tar.gz"
-      sha256 "83cd9872acf5bf59e77c149504431e317eed74537169a27f48d732db6f941415"
+      url "https://github.com/kenn-io/agentsview/releases/download/v0.47.0/agentsview_0.47.0_darwin_arm64.tar.gz"
+      sha256 "7fb2747410d8d2941912414e968ccca33b0a67166270d4fa17e8ff88ec207f8f"
     end
     on_intel do
       # update: darwin_amd64
-      url "https://github.com/kenn-io/agentsview/releases/download/v0.46.1/agentsview_0.46.1_darwin_amd64.tar.gz"
-      sha256 "ed83679fc6ddcee02f1f66490ba0902fd8710dbf2bd5bb45172737dacbd340ea"
+      url "https://github.com/kenn-io/agentsview/releases/download/v0.47.0/agentsview_0.47.0_darwin_amd64.tar.gz"
+      sha256 "943072df90a6b6ce5d3263f16b9e40fbdc2d77302aacc5c1af825c85524a38ad"
     end
   end
 
   on_linux do
     on_arm do
       # update: linux_arm64
-      url "https://github.com/kenn-io/agentsview/releases/download/v0.46.1/agentsview_0.46.1_linux_arm64.tar.gz"
-      sha256 "b170c7a70fab2c5d6297515b0f972aa3b43e1f3a677e7cc6b450d64ca730fb02"
+      url "https://github.com/kenn-io/agentsview/releases/download/v0.47.0/agentsview_0.47.0_linux_arm64.tar.gz"
+      sha256 "587936c600ecef1a0b18ecabf384c75c4ea503c37f9032ef1117c023544edeaa"
     end
     on_intel do
       # update: linux_amd64
-      url "https://github.com/kenn-io/agentsview/releases/download/v0.46.1/agentsview_0.46.1_linux_amd64.tar.gz"
-      sha256 "e7822006d7bafa3aef9a5e4f7d7caffca56051bb039b848222a73633ed4c6c9b"
+      url "https://github.com/kenn-io/agentsview/releases/download/v0.47.0/agentsview_0.47.0_linux_amd64.tar.gz"
+      sha256 "a49876edf9fe8d0641978afe69d776540175852a446a5d42a6d439215eb0dc45"
     end
   end
 

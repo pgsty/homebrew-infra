@@ -4,7 +4,7 @@
 class Mcli < Formula
   desc "Command-line client for Silo and S3-compatible object storage"
   homepage "https://silo.pgsty.com"
-  version "2026-10-26T00-00-00Z"
+  version "2026-11-12T00-00-00Z"
   license "AGPL-3.0-or-later"
 
   livecheck do
@@ -18,26 +18,26 @@ class Mcli < Formula
 
     on_arm do
       # update: darwin_arm64
-      url "https://github.com/pgsty/mc/releases/download/RELEASE.2026-10-26T00-00-00Z/mcli_20261026000000.0.0_darwin_arm64.tar.gz"
-      sha256 "6766e964afdbfc481c39999c08fdd5d539d22876c8d8ba8701b0369a912d3e7a"
+      url "https://github.com/pgsty/mc/releases/download/RELEASE.2026-11-12T00-00-00Z/mcli_20261112000000.0.0_darwin_arm64.tar.gz"
+      sha256 "b7e803f82445245cf2194cc7fd65ea949f2839207d8cbfde98cca340f206e4c9"
     end
     on_intel do
       # update: darwin_amd64
-      url "https://github.com/pgsty/mc/releases/download/RELEASE.2026-10-26T00-00-00Z/mcli_20261026000000.0.0_darwin_amd64.tar.gz"
-      sha256 "3643d18c45db97383a2fb6b457af2029040ca27d0110809eeb98f7dbcf3429e7"
+      url "https://github.com/pgsty/mc/releases/download/RELEASE.2026-11-12T00-00-00Z/mcli_20261112000000.0.0_darwin_amd64.tar.gz"
+      sha256 "4b3486d80ea88a4085a4fc5327f98333820a8f757a87d805ff96bb089cdf7e28"
     end
   end
 
   on_linux do
     on_arm do
       # update: linux_arm64
-      url "https://github.com/pgsty/mc/releases/download/RELEASE.2026-10-26T00-00-00Z/mcli_20261026000000.0.0_linux_arm64.tar.gz"
-      sha256 "47b1a558f766f26bef5beeedd5300e082bcdec07a5e7d4a16f5f9d168f5275d1"
+      url "https://github.com/pgsty/mc/releases/download/RELEASE.2026-11-12T00-00-00Z/mcli_20261112000000.0.0_linux_arm64.tar.gz"
+      sha256 "4ea59d2f278c96b25e380289fd2ee9bc49faa342687074f031805cb7b34fbe1a"
     end
     on_intel do
       # update: linux_amd64
-      url "https://github.com/pgsty/mc/releases/download/RELEASE.2026-10-26T00-00-00Z/mcli_20261026000000.0.0_linux_amd64.tar.gz"
-      sha256 "e86295bb11ed59369c0560f030d59abd42fb64a376b1d7e9799ec2e8596ebf64"
+      url "https://github.com/pgsty/mc/releases/download/RELEASE.2026-11-12T00-00-00Z/mcli_20261112000000.0.0_linux_amd64.tar.gz"
+      sha256 "68875c7fdd06a76af12b74753506df65226d1bec65a405d2617d76448c229ba2"
     end
   end
 
