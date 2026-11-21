@@ -14,26 +14,26 @@ class PgExporter < Formula
   on_macos do
     on_arm do
       # update: darwin_arm64
-      url "https://github.com/pgsty/pg_exporter/releases/download/v1.5.0/pg_exporter-1.5.0.darwin-arm64.tar.gz"
-      sha256 "3fb47e285c2700227b0437c827fdbf0d87a93e24befb5e94f439082073700e8d"
+      url "https://github.com/pgsty/pg_exporter/releases/download/v1.6.1/pg_exporter-1.6.1.darwin-arm64.tar.gz"
+      sha256 "9ace0b48115497f2b3d7d9e1660e13e6a778472c66c8ec5ff679faa2fa61c662"
     end
     on_intel do
       # update: darwin_amd64
-      url "https://github.com/pgsty/pg_exporter/releases/download/v1.5.0/pg_exporter-1.5.0.darwin-amd64.tar.gz"
-      sha256 "f3e5d03d3c3ca7df5e50e017e1c18ec78ccdc099f610296f674349acc1466975"
+      url "https://github.com/pgsty/pg_exporter/releases/download/v1.6.1/pg_exporter-1.6.1.darwin-amd64.tar.gz"
+      sha256 "496c42f329fc265e952c964afaef29ebc7d2d4640180872a735a84eebb962774"
     end
   end
 
   on_linux do
     on_arm do
       # update: linux_arm64
-      url "https://github.com/pgsty/pg_exporter/releases/download/v1.5.0/pg_exporter-1.5.0.linux-arm64.tar.gz"
-      sha256 "19f34db9e034d1437791af52676cf32e60a669d4a5036e0cc3efbe14efb61cde"
+      url "https://github.com/pgsty/pg_exporter/releases/download/v1.6.1/pg_exporter-1.6.1.linux-arm64.tar.gz"
+      sha256 "91da5400ae31d42925af721c7d5f8eb0befcbb104d8a14ae5f08707abb5e333b"
     end
     on_intel do
       # update: linux_amd64
-      url "https://github.com/pgsty/pg_exporter/releases/download/v1.5.0/pg_exporter-1.5.0.linux-amd64.tar.gz"
-      sha256 "e372f6defb844b4bfbe3286b40dba3d4aae2ce72c4bed9980e3b9a56507aef56"
+      url "https://github.com/pgsty/pg_exporter/releases/download/v1.6.1/pg_exporter-1.6.1.linux-amd64.tar.gz"
+      sha256 "e8fdf64c352081720a53420a2c7ea095654078d5fab5f6213786bb6476791fdf"
     end
   end
 

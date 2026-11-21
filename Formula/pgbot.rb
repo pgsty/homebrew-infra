@@ -11,26 +11,26 @@ class Pgbot < Formula
 
     on_arm do
       # update: darwin_arm64
-      url "https://github.com/pgrundev/pgbot/releases/download/v0.9.0/pgbot_0.9.0_darwin_arm64.tar.gz"
-      sha256 "04c5e2463388716067302968ece839d37dcff5aeae91bbf8997a50e824681a03"
+      url "https://github.com/pgrundev/pgbot/releases/download/v0.10.0/pgbot_0.10.0_darwin_arm64.tar.gz"
+      sha256 "d5e6bdd6d15c24aedac28a05138ee98adc73f51c9a4de93f58df2daa684c8f49"
     end
     on_intel do
       # update: darwin_amd64
-      url "https://github.com/pgrundev/pgbot/releases/download/v0.9.0/pgbot_0.9.0_darwin_amd64.tar.gz"
-      sha256 "ba9bf9b7879e0287184f70fcb0898fe86c006e7c4fe2b1a0d76354ca49b1d17e"
+      url "https://github.com/pgrundev/pgbot/releases/download/v0.10.0/pgbot_0.10.0_darwin_amd64.tar.gz"
+      sha256 "411c74ec2cc739aa206a390c7ef3d77b8770df6b61530aff54242be9b6933438"
     end
   end
 
   on_linux do
     on_arm do
       # update: linux_arm64
-      url "https://github.com/pgrundev/pgbot/releases/download/v0.9.0/pgbot_0.9.0_linux_arm64.tar.gz"
-      sha256 "143fb4cde17b0d6d27d3887a9c29967b684f7a5037602f69a46d160c3be64c22"
+      url "https://github.com/pgrundev/pgbot/releases/download/v0.10.0/pgbot_0.10.0_linux_arm64.tar.gz"
+      sha256 "442d6e14883dae2d2066eddc74d5176e8a2eb9d22dc4b7f293be64f79db08cce"
     end
     on_intel do
       # update: linux_amd64
-      url "https://github.com/pgrundev/pgbot/releases/download/v0.9.0/pgbot_0.9.0_linux_amd64.tar.gz"
-      sha256 "adf0f08fbdd212a8c6b1e0462f872916866968c25e6e35ba1b5bba22a39841bc"
+      url "https://github.com/pgrundev/pgbot/releases/download/v0.10.0/pgbot_0.10.0_linux_amd64.tar.gz"
+      sha256 "102dd639639ab7a4c2a933bf612390e21b699962ee33d9c939128657e416ae2e"
     end
   end
 
