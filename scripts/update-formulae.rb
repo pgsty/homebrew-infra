@@ -12,7 +12,15 @@ require "uri"
 module PgstyInfra
   class Error < StandardError; end
 
-  Platform = Struct.new(:key, :os, :arch, keyword_init: true)
+  Platform = Struct.new(:key, :os, :arch, keyword_init: true) do
+    def darwin?
+      os == "darwin"
+    end
+
+    def amd64?
+      arch == "amd64"
+    end
+  end
   FormulaConfig = Struct.new(
     :name,
     :repo,
@@ -296,8 +304,8 @@ module PgstyInfra
           explicit_version: false,
           version_proc:     method(:semver_version),
           asset_proc:       lambda do |tag, platform|
-            os = (platform.os == "darwin") ? "macos" : "linux"
-            arch = (platform.arch == "amd64") ? "x86_64" : "arm64"
+            os = platform.darwin? ? "macos" : "linux"
+            arch = platform.amd64? ? "x86_64" : "arm64"
             "pgbackrest_exporter-#{semver_version(tag)}-#{os}-#{arch}.tar.gz"
           end,
         ),
@@ -322,8 +330,8 @@ module PgstyInfra
           explicit_version: false,
           version_proc:     method(:semver_version),
           asset_proc:       lambda do |_tag, platform|
-            os = (platform.os == "darwin") ? "Darwin" : "Linux"
-            arch = (platform.arch == "amd64") ? "x86_64" : "arm64"
+            os = platform.darwin? ? "Darwin" : "Linux"
+            arch = platform.amd64? ? "x86_64" : "arm64"
             "pg_timetable_#{os}_#{arch}.tar.gz"
           end,
         ),
@@ -390,8 +398,8 @@ module PgstyInfra
           explicit_version: false,
           version_proc:     method(:semver_version),
           asset_proc:       lambda do |_tag, platform|
-            os = (platform.os == "darwin") ? "apple-darwin" : "unknown-linux-gnu"
-            arch = (platform.arch == "amd64") ? "x86_64" : "aarch64"
+            os = platform.darwin? ? "apple-darwin" : "unknown-linux-gnu"
+            arch = platform.amd64? ? "x86_64" : "aarch64"
             "sabiql-#{arch}-#{os}.tar.gz"
           end,
         ),
@@ -404,8 +412,8 @@ module PgstyInfra
           explicit_version: false,
           version_proc:     method(:plain_version),
           asset_proc:       lambda do |_tag, platform|
-            os = (platform.os == "darwin") ? "apple-darwin" : "unknown-linux-gnu"
-            arch = (platform.arch == "amd64") ? "x86_64" : "aarch64"
+            os = platform.darwin? ? "apple-darwin" : "unknown-linux-gnu"
+            arch = platform.amd64? ? "x86_64" : "aarch64"
             "sql-studio-#{arch}-#{os}.tar.xz"
           end,
         ),
@@ -418,8 +426,8 @@ module PgstyInfra
           explicit_version: false,
           version_proc:     method(:semver_version),
           asset_proc:       lambda do |_tag, platform|
-            os = (platform.os == "darwin") ? "apple-darwin" : "unknown-linux-gnu"
-            arch = (platform.arch == "amd64") ? "x86_64" : "aarch64"
+            os = platform.darwin? ? "apple-darwin" : "unknown-linux-gnu"
+            arch = platform.amd64? ? "x86_64" : "aarch64"
             "stalwart-#{arch}-#{os}.tar.gz"
           end,
         ),
@@ -432,10 +440,10 @@ module PgstyInfra
           explicit_version: false,
           version_proc:     method(:plain_version),
           asset_proc:       lambda do |_tag, platform|
-            if platform.os == "darwin"
+            if platform.darwin?
               "tigerbeetle-universal-macos.zip"
             else
-              arch = (platform.arch == "amd64") ? "x86_64" : "aarch64"
+              arch = platform.amd64? ? "x86_64" : "aarch64"
               "tigerbeetle-#{arch}-linux.zip"
             end
           end,

@@ -202,10 +202,11 @@ class UpdateFormulaeTest
     tag = "0.99.0"
     names = %w[tigerbeetle-universal-macos.zip tigerbeetle-aarch64-linux.zip tigerbeetle-x86_64-linux.zip]
     assets = names.each_with_index.map do |name, index|
+      digest = (index + 1).to_s * 64
       {
         "name"                 => name,
         "browser_download_url" => "https://github.com/tigerbeetle/tigerbeetle/releases/download/#{tag}/#{name}",
-        "digest"               => "sha256:#{(index + 1).to_s * 64}",
+        "digest"               => "sha256:#{digest}",
       }
     end
     release = { "tag_name" => tag, "assets" => assets }
