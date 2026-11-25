@@ -9,26 +9,26 @@ class SqlStudio < Formula
   on_macos do
     on_arm do
       # update: darwin_arm64
-      url "https://github.com/frectonz/sql-studio/releases/download/0.1.53/sql-studio-aarch64-apple-darwin.tar.xz"
-      sha256 "927ca0e6fe71e85f648f55c3883beeb720848df7ea2387e2a82cff0c94ad348a"
+      url "https://github.com/frectonz/sql-studio/releases/download/0.1.54/sql-studio-aarch64-apple-darwin.tar.xz"
+      sha256 "0116c21a651074469e1e49e7ca44f41dc7ca162f6d6c241dcea2a00d027cfcf5"
     end
     on_intel do
       # update: darwin_amd64
-      url "https://github.com/frectonz/sql-studio/releases/download/0.1.53/sql-studio-x86_64-apple-darwin.tar.xz"
-      sha256 "09de3bf71e6bfb9a7efd08007f85a590500fb169adb5d8bb7e355fab1732b0ca"
+      url "https://github.com/frectonz/sql-studio/releases/download/0.1.54/sql-studio-x86_64-apple-darwin.tar.xz"
+      sha256 "a36e001ae99df5576d8ccdcbd09118e10ce11e046c17fdc2cb63155c7f09a6d7"
     end
   end
 
   on_linux do
     on_arm do
       # update: linux_arm64
-      url "https://github.com/frectonz/sql-studio/releases/download/0.1.53/sql-studio-aarch64-unknown-linux-gnu.tar.xz"
-      sha256 "88de523a6c36dffbbcc68770bb55665626c904bdfb45b1fbc2a2943a47c03a7e"
+      url "https://github.com/frectonz/sql-studio/releases/download/0.1.54/sql-studio-aarch64-unknown-linux-gnu.tar.xz"
+      sha256 "1cd19ca4f852228cfed9eccb4e894e772e1ee0c1cd46b58972b0375d60387657"
     end
     on_intel do
       # update: linux_amd64
-      url "https://github.com/frectonz/sql-studio/releases/download/0.1.53/sql-studio-x86_64-unknown-linux-gnu.tar.xz"
-      sha256 "55323af39b8acac55afb03a36c43922855e09d09feedde4f40415f1ee59311a3"
+      url "https://github.com/frectonz/sql-studio/releases/download/0.1.54/sql-studio-x86_64-unknown-linux-gnu.tar.xz"
+      sha256 "ceadd0a42d53f4537ca6fa68a4464b32b9db53c3ba54205db3bd5a85c543a2b6"
     end
   end
 
