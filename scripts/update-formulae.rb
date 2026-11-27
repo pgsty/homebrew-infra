@@ -639,9 +639,12 @@ module PgstyInfra
         asset = matches.first
         url = asset.fetch("browser_download_url")
         validate_asset_url!(config, url)
-        existing_url, existing_sha = platform_values(lines, path, platform)
-        sha256 = @client.sha256(asset, existing_url: existing_url, existing_sha: existing_sha)
-        replace_platform!(lines, path, platform, url, sha256, config.nounzip)
+        marker_index, url_match, sha_match = platform_block(lines, path, platform)
+        sha256 = @client.sha256(asset, existing_url: url_match[2], existing_sha: sha_match[2])
+        indent = url_match[1]
+        suffix = config.nounzip ? ", using: :nounzip" : ""
+        lines[marker_index + 1] = "#{indent}url \"#{url}\"#{suffix}\n"
+        lines[marker_index + 2] = "#{indent}sha256 \"#{sha256}\"\n"
       end
 
       [path, lines.join, tag]
@@ -663,21 +666,6 @@ module PgstyInfra
       raise Error, "unexpected release asset URL for #{config.repo}: #{url}"
     end
 
-    def replace_platform!(lines, path, platform, url, sha256, nounzip)
-      marker_index, url_match, = platform_block(lines, path, platform)
-      url_index = marker_index + 1
-      sha_index = marker_index + 2
-      suffix = nounzip ? ", using: :nounzip" : ""
-      indent = url_match[1]
-      lines[url_index] = "#{indent}url \"#{url}\"#{suffix}\n"
-      lines[sha_index] = "#{indent}sha256 \"#{sha256}\"\n"
-    end
-
-    def platform_values(lines, path, platform)
-      _marker_index, url_match, sha_match = platform_block(lines, path, platform)
-      [url_match[2], sha_match[2]]
-    end
-
     def platform_block(lines, path, platform)
       marker = "# update: #{platform.key}"
       indexes = lines.each_index.select { |index| lines[index].strip == marker }
@@ -688,12 +676,9 @@ module PgstyInfra
       sha_index = marker_index + 2
       url_match = /\A(\s*)url "([^"]+)"(?:, using: :nounzip)?\s*\z/.match(lines.fetch(url_index))
       sha_match = /\A(\s*)sha256 "([0-9a-f]{64})"\s*\z/.match(lines.fetch(sha_index))
-      valid_block = url_match && sha_match && url_match[1] == sha_match[1]
-      unless valid_block
-        raise Error, "#{path} has an invalid URL/SHA block after #{marker}"
-      end
+      return [marker_index, url_match, sha_match] if url_match && sha_match && url_match[1] == sha_match[1]
 
-      [marker_index, url_match, sha_match]
+      raise Error, "#{path} has an invalid URL/SHA block after #{marker}"
     end
   end
 
